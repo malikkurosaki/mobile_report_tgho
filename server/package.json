@@ -1,0 +1,40 @@
+{
+  "name": "mobile_report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "webpack --mode production ",
+    "dev": "webpack --mode development --watch",
+    "seed": "node seeds/seed.js",
+    "run-dev": "nodemon ."
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "*json"
+    ]
+  },
+  "dependencies": {
+    "@prisma/client": "^3.10.0",
+    "@toptensoftware/losangeles": "^0.3.5",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^2.28.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.2.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "momentjs": "^2.0.0",
+    "simple-json-db": "^1.2.3",
+    "uuid-int": "^3.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.4.0",
+    "prisma": "^3.7.0",
+    "webpack": "^5.67.0"
+  }
+}

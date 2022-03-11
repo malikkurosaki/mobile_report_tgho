@@ -1,0 +1,172 @@
+#!/bin/bash
+
+DT=$(date +"%D-%T")
+R=$(tput setaf 1)
+G=$(tput setaf 2)
+Y=$(tput setaf 3)
+B=$(tput setaf 4)
+C=$(tput setaf 6)
+W=$(tput setaf 7)
+UUID=$(uuidgen)
+
+PENGGUNAAN() {
+    local PG="
+    ---------------------------------------
+    MOBILE_REPORT         $DT
+    ---------------------------------------
+    -s : server
+    -l : local
+    -i : info
+    pct: menerapkan patch membuat table auth
+
+    -s [param]
+        login       login ke srver otomatis
+        db          login ke database di server
+        pull        git pull di server
+        wd          lihat work directory
+        stt         server status
+        res         restart server mobile report
+        err         melihat error logs server
+        log         melihat log pada server
+        mon         memonitor server
+        npmv        melihat versi npm
+        nodv        melihat versi node
+
+    -l [param]
+        push        git push
+        run         menjalankan local server
+        xcoba       jalankan percobaan file xcoba
+        gen         prisma generate
+
+    "
+
+    echo -e $Y"$PG"$W
+}
+
+SERVER() {
+    local LGN="sshpass -p 7971515Probus@system ssh root@report-mobile-dev.probussystem.net"
+    local DB="mysql -u probus -P 3308 -h 172.72.0.2 -p"
+    local PULL="cd .. && cd home/mobile_report && git pull -f"
+    local WORK_DIR="cd ../home/mobile_report && pwd"
+    local STT="pm2 status"
+    local REST="pm2 restart mobile_report"
+    local ERR="pm2 logs mobile_report --err --lines 100 --timestamp"
+    local LOG="pm2 logs mobile_report --out"
+    local MONIT="pm2 monit"
+    local DETAIL="pm2 show mobile_report"
+    local NPMV="cd ../home/mobile_report && npm --version"
+    local NODV="node --version"
+    local NPMI="cd ../home/mobile_report &&  npm install"
+    case $1 in
+    login) $LGN ;;
+    pull) $LGN -t $PULL ;;
+    db) $LGN -t $DB ;;
+    wd) $LGN -t $WORK_DIR ;;
+    stt) $LGN -t $STT ;;
+    res) $LGN -t $REST ;;
+    err) $LGN -t $ERR ;;
+    log) $LGN -t $LOG ;;
+    mon) $LGN -t $MONIT ;;
+    det) $LGN -t $DETAIL ;;
+    npmv) $LGN -t $NPMV ;;
+    nodv) $LGN -t $NODV ;;
+    npmi) $LGN -t $NPMI ;;
+    *) echo "$1 belum dibuat" ;;
+    esac
+}
+
+LOCAL() {
+    case $1 in
+    push) git add . && git commit -m $DT && git push origin main ;;
+    run) dotenv -e .env.local -- nodemon . ;;
+    xcoba) dotenv -e .env.local -- ./xcoba ;;
+    gen) prisma generate ;;
+    *) echo "$1 belum dibuat" ;;
+    esac
+}
+
+INFO() {
+    NT="
+        WEBSITE :
+            host:           report-mobile-dev.probussystem.net
+            user:           administrator@app.com
+            password:       password
+        
+        SSH:
+            host:           report-mobile-dev.probussystem.net
+            user:           root
+            password:       7971515Probus@system
+        
+        DB:
+            host:           172.17.0.2
+            user:           probus
+            port:           3308
+            db:             dbreportmobile-dev
+            paswd:          Probus@7971515
+        
+        GIT:
+            token           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
+            host            https://github.com/malikkurosaki/mobile_report
+
+        API: 
+            host:           188.166.218.138:3000
+            dashboard:      /dashboard?tgl=&dep=&out=
+    "
+
+    echo $Y"$NT"$W
+}
+
+API() {
+    A=$(tput setaf 2)
+    B=$(tput setaf 7)
+    local TXT=$A"
+    ROUTE:
+        1.  /dash               /dash?tgl1=2021-1-01&tgl2=2021-12-31&out=&dep=
+        2.  /salesPerformance   /salesPerformance?tgl1=2021-1-01&tgl2=2021-12-31&out=&dep=
+        3.  /salesAvarage       /salesAvarage?tgl1=2021-1-01&tgl2=2021-12-31&out=&dep=
+    "$B
+
+    echo "$TXT"
+
+    echo -n "Pilih (Nomer) ?: "
+    read PILIH
+    case $PILIH in
+    1)
+        echo $(tput setaf 2) "$(curl http://localhost:3000/api/dash?tgl=2021-11-01&dep=&out=)"$(tput setaf 7)
+        echo -e "\n\n"
+        ;;
+    esac
+
+}
+
+patch(){
+    l="mysql -uroot -pMakuro_123 -Ddbreportmobile "
+    p="create table if not exists Auth (id int primary key auto_increment not null, name varchar(199) NOT NULL, email varchar(199) not null, password varchar(199) not null);"
+    c=$($l -e "$p select * from Auth")
+    [[ "$c" == *"email"* ]] && echo -e "\ntabel auth berhasil dibuat\n" || echo "\ngagal membuat table auth\n"
+
+}
+
+SINGLE() {
+    case $1 in
+    -i) INFO ;;
+    api) API ;;
+    pct) patch ;;
+    *) echo -e $Y"gunakan [command] [-l / -s] [perintah] | -i untuk info "$W ;;
+    esac
+}
+
+DOUBLE() {
+    case $1 in
+    -l) LOCAL $2 ;;
+    -s) SERVER $2 ;;
+    esac
+}
+
+PENGGUNAAN
+echo -n $G"Pilih ?: "$W
+read s1 s2
+[[ -n $s1 && -n $s2 ]] && DOUBLE $s1 $s2
+[[ -n $s1 && -z $s2 ]] && SINGLE $s1
+[[ -z $s1 && -z $s2 ]] && PENGGUNAAN
+

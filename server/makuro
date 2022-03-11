@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# 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
+R=$(tput setaf 1)
+G=$(tput setaf 2)
+Y=$(tput setaf 3)
+B=$(tput setaf 4)
+C=$(tput setaf 6)
+W=$(tput setaf 7)
+MENU="
+PILIH MENU :
+1.  jalankan local server
+2.  db generate
+3.  push
+4.  update di server
+0.  keluar
+"
+WAKTU=$(date +"%D")
+UPDATE_SERVER="$(git add . && git commit -m 'makuro_${WAKTU}' && git pull -f origin main)"
+LS="ls"
+# GIT_PUSH="git add . && git commit -m "makuro_${WAKTU}" && git push origin main"
+GIT_VERSION=$(git --version)
+SERVER_DIR=$(sshpass -p 7971515Probus@system ssh root@report-mobile-dev.probussystem.net -t "cd .. && cd home/mobile_report")
+
+Muncul() { echo "${MENU}" && echo -n "${G}Lilihannya (Nomor) ?: $W"; }
+Muncul
+while :; do
+  read PILIHAN
+  case $PILIHAN in
+  1) nodemon . ;;
+  2) prisma generate ;;
+  3) echo "$Y$($GIT_PUSH)$W" ;;
+  4) echo "$Y$($SERVER_DIR && $LS)$W" ;;
+  5) echo "$Y$($GIT_VERSION)$W" ;;
+  6) echo "$Y$GIT_CLEAR_CACHE$W" ;;
+  0) echo "Bye ..." ;;
+  *) echo "pilih yag ada aja ..." ;;
+  esac
+  Muncul
+done

@@ -1,0 +1,116 @@
+#!/usr/bin/env node
+
+const moment = require('moment');
+
+
+let currentDate = moment();
+let weekStart = currentDate.clone().startOf('week');
+let weekEnd = currentDate.clone().endOf('week');
+
+console.log(weekStart.toDate(), weekEnd.toDate())
+
+// user.push({
+//     nama: "malik",
+//     password: "1234"
+// })
+
+
+// user.push({
+//     "id": {
+//         id: true
+//     },
+//     "name": "malik",
+//     "password": "123"
+// })
+
+// console.log(user.remove({name: "malik"}));
+// console.log(user.filter())
+
+
+// const { PrismaClient, Prisma } = require("@prisma/client");
+// const prisma = new PrismaClient();
+// const moment = require('moment');
+// const { Sequelize, DataTypes, Model } = require("sequelize");
+
+// const sequelize = new Sequelize({
+//     dialect: "sqlite",
+//     storage: "database.sqlite",
+//     logging: false
+// });
+
+
+
+// const User = sequelize.define("User",{
+//     id: {
+//         autoIncrement: true,
+//         type: DataTypes.INTEGER,
+//         primaryKey: true
+//     },
+//     name: {
+//         type: DataTypes.STRING
+//     },
+//     role: {
+//         type: DataTypes.STRING
+//     }
+// })
+
+
+
+;(async () => {
+
+    // try {
+    //     await User.sync();
+    //     console.log("user sync")
+    // } catch (error) {
+    //     console.log(error);
+    // }
+
+    // const user = await User.findAll();
+    // console.log(user);
+
+    // menghitung compliment
+    // let com = await prisma.bill.groupBy({
+    //     by: ["nobill"],
+    //     where: {
+    //         tanggal: new Date("2021-12-01"),
+    //         compli: {
+    //             not: 0
+    //         }
+    //     }
+    // })
+
+    // console.log(com.length)
+
+    // let apa = await prisma.listbill.aggregate({
+    //     _sum: {
+    //         total: true,
+    //         pax: true,
+    //         gtotal: true,
+    //     },
+    //     where: {
+    //         tanggal: {
+    //             gte: new Date('2021-01-01'),
+    //             lte: new Date('2021-01-31')
+    //         }
+    //     }
+    // })
+
+    // console.log(apa)
+
+    // let avg = await prisma.listbill.aggregate({
+    //     _avg: {
+    //         total: true,
+    //         net: true,
+    //         pax: true,
+    //         gtotal: true,
+    //     },
+    //     where: {
+    //         tanggal: {
+    //             gte: new Date('2021-01-01'),
+    //             lte: new Date('2021-12-31')
+    //         }
+    //     }
+    // })
+
+    // console.log(Math.round(avg._avg.net))
+})();

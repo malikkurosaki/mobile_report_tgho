@@ -1,0 +1,295 @@
+#!/usr/bin/env bash
+
+hostServer="116.193.191.104"
+hostAndroid="10.0.2.2"
+hostDev="localhost"
+port="3100"
+path="api/v2"
+protocol="http"
+ver="v2"
+
+help() {
+    echo "$(tput setaf 6)
+    Usage:
+        presto [options] | ./presto [options]
+    Options:
+        -h,     help
+        -r,     run
+        -db,    database
+        -rs,    rest
+        -sc,    set config    
+   $(tput sgr0)"
+}
+
+config() {
+    local host
+    case "$1" in
+    production)
+        host=$hostServer
+        ;;
+    android)
+        host=$hostAndroid
+        ;;
+    dev)
+        host=$hostDev
+        ;;
+    *)
+        echo 'production, android, dev'
+        ;;
+    esac
+    if [ ! -z $host ]; then
+        server="{
+            \"host\": \"$host\",
+            \"port\": $port,
+            \"path\": \"$path\",
+            \"protocol\": \"$protocol\",
+            \"ver\": \"$ver\",
+            \"url\": \"$protocol://$host:$port/$path/$ver\"
+        }"
+        echo "$server" | jq . >server/config.json
+        echo "$protocol://$host:$port"
+        echo "//reload $(date)" >server/reload.js
+
+        client="
+        class Conf{
+            static const String host = '$host';
+            static const int port = $port;
+            static const String path = '$path';
+            static const String protocol = '$protocol';
+            static const String ver = '$ver';
+            static const String url = '$protocol://$host:$port/$path';
+        }
+        "
+        echo "$client" >lib/conf.dart
+        dart format lib/conf.dart
+    fi
+
+}
+
+if [ $# -eq 0 ]; then
+    help
+    exit 1
+else
+    case $1 in
+    -h)
+        help
+        ;;
+    -r)
+        case $2 in
+        server)
+            cd server && nodemon --ignore ./views ./server.js
+            ;;
+        chrome)
+            cd mobile_report
+            flutter run -d chrome --web-renderer html --web-port=8080
+            ;;
+        web-server)
+            flutter run -d web-server --web-port=8080
+            ;;
+        *)
+            echo "server, chrome, web-server"
+            ;;
+        esac
+        ;;
+    -db)
+        case $2 in
+        table)
+            db=$(mysql -uroot -pMakuro_123 -Ddbtgho -e "show tables;")
+            declare -a col=("$db")
+
+            for i in ${col[@]}; do
+                echo "$(tput setaf 6)"${i}"$(tput sgr0)"
+            done | column
+
+            read -p "Enter table name: " table
+            query="select * from ${table} limit 100"
+            db=$(mysql -uroot -pMakuro_123 -Ddbtgho -e "${query}")
+            echo "$(tput setaf 3)$db$(tput sgr0)"
+            ;;
+        dept)
+            dept=$(mysql -uroot -pMakuro_123 -Ddbtgho -e "select nama_dept from acc_dept")
+            echo "$(tput setaf 3)$dept$(tput sgr0)"
+            ;;
+        group)
+            group=$(mysql -uroot -pMakuro_123 -Ddbtgho -e "select nm_groupp from groupp")
+            echo "$(tput setaf 3)$group$(tput sgr0)"
+            ;;
+        outlet)
+            outlet=$(mysql -uroot -pMakuro_123 -Ddbtgho -e "select nama_out, kode_out from outlet")
+            echo "$(tput setaf 3)$outlet$(tput sgr0)"
+
+            ;;
+        *) echo "table | dept | group | outlet" ;;
+
+        esac
+
+        ;;
+    -rs)
+        case $2 in
+        dashboard)
+            echo "$(tput setaf 6)"masukkan tanggal"$(tput sgr0)"
+            read -p "tanggal 1: " tgl1
+            read -p "tanggal 2: " tgl2
+            curl -X GET "${protocol}://${hostDev}:${port}/${path}/dashboard?tgl1=$tgl1&tgl2=$tgl2" | jq .
+            ;;
+        yearReport)
+ 
+            curl -X GET "${protocol}://${hostDev}:${port}/${path}/yearReport" | jq .
+            ;;
+        *)
+            echo "Api:
+            dashboard
+            yearReport
+            deptReport
+            productReport
+            " | sed -e 's/^[ \t]*//'
+            ;;
+        esac
+        ;;
+    -sc)
+        config $2
+        ;;
+    -ts)
+        while true; do
+            sleep 2
+            echo 'text here'
+        done
+        ;;
+    -b)
+        case $2 in
+        web)
+            cd mobile_report
+            cp -r build/web/* ../server/views/
+            ;;
+
+        *) echo "web" ;;
+        esac
+        ;;
+    *) echo "perintah tidak ada -h untuk menampilkan help" ;;
+    esac
+fi
+
+# # get time
+# TIME=$(date +%Y%m%d%H%M%S)
+# LOGIN="sshpass -p StartOurDream2022 ssh posapp@$HOST"
+# ENV_DEV="DATABASE_URL=\"mysql://root:Makuro_123@localhost:3306/dbtgho\""
+# ENV_PRO="DATABASE_URL=\"mysql://probus:7971515@localhost:3306/dbtgho\""
+
+# config(){
+#     local CON="
+#         class Config{
+#             static const url = false;
+#         }
+#     "
+# }
+
+# CONFIG_DEV="
+# class Config{
+#     static const isDevAndroid = false;
+#     static const isDevWeb = true;
+#     static const weblUrl = 'http://$HOST_SER:$PORT/apiv2';
+#     static const androidUrl = 'http://$HOST_AN:$PORT/apiv2';
+#     static const serverUrl = 'http://$HOST:$PORT/apiv2';
+#     static const getUrl = isDevAndroid? androidUrl : isDevWeb? weblUrl : serverUrl;
+# }
+# "
+
+# CONFIG_PRO="
+# class Config{
+#   static const isDevAndroid = false;
+#   static const isDevWeb = false;
+#   static const weblUrl = 'http://$HOST_SER:$PORT/apiv2';
+#   static const androidUrl = 'http://$HOST_AN:$PORT/apiv2';
+#   static const serverUrl = 'http://$HOST:$PORT/apiv2';
+#   static const getUrl = isDevAndroid? androidUrl : isDevWeb? weblUrl :  serverUrl;
+# }
+# "
+# help() {
+#     echo "$(tput setaf 2)
+# Name:
+#     presto
+# Usage:
+#     presto [options] | ./presto [options]
+# Options:
+#     -rs, runs: run presto server
+#     -rc, runc: run presto client
+#     -h, help: show this help
+#     -rc, runc: run presto on chrome
+#     -bw, buildw: build web release
+#     -g, gen: generate presto
+#     -l, login: login to server
+#     -p, push: push to server
+#     -s, seed: seed database
+#     -ct, crtbl: create table
+#     -md , mdev: mode dev
+#     -mp, mpro: mode pro
+
+# $(tput sgr0)"
+# }
+
+# case $1 in
+# runs | -rs)
+#     cd server && nodemon .
+#     ;;
+# runc | -rc)
+#     flutter run -d chrome
+#     ;;
+# buildw | -bw)
+#     flutter build web --release
+#     ;;
+# gen | -g)
+#     cd server && prisma generate
+#     ;;
+# login | -l)
+#     $LOGIN
+#     ;;
+# push | -p)
+#     echo -e $ENV_PRO >server/.env
+#     echo -e $CONFIG_PRO >lib/config.dart
+#     flutter build web --release --web-renderer html
+#     git add .
+#     git commit -m "$TIME"
+#     git push origin main
+#     echo -e $ENV_DEV >server/.env
+#     echo -e $CONFIG_DEV >lib/config.dart
+#     $LOGIN -t "source ~/.nvm/nvm.sh && pm2 stop all && cd mobile_report_apk && git pull origin main && cd server &&  npm install && prisma generate && pm2 restart all"
+#     ;;
+# seed | -s)
+#     cd server/seeds && node create_table.js && cd .. && prisma generate && cd seeds && node seed.js
+#     ;;
+# seeds | -se)
+#     $LOGIN -t "source ~/.nvm/nvm.sh && pm2 stop all && cd mobile_report_apk && ./presto -s && pm2 restart all"
+#     ;;
+# crtbl | -ct)
+#     CRT="
+#     DROP TABLE IF EXISTS Auth;
+#     CREATE TABLE Auth(
+#         id Int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+#         name VARCHAR(255) NOT NULL,
+#         email VARCHAR(255) UNIQUE NOT NULL,
+#         password VARCHAR(255) NOT NULL,
+#         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+#     );
+#     SELECT * FROM Auth;"
+#     case $2 in
+#     -c) mysql -uroot -pMakuro_123 -hlocalhost -P3306 -Ddbreportmobile -e "$CRT" ;;
+#     -s) $LOGIN -t "mysql -uprobus -p7971515 -hlocalhost -P3306 -Ddbtgho -e \"$CRT\"" ;;
+#     *) echo "Please input -c or -s" ;;
+#     esac
+
+#     ;;
+# mdev | -md)
+#     echo "runing on dev mode"
+#     echo -e $ENV_DEV >server/.env
+#     ;;
+# mpro | -mp)
+#     echo "runing on pro mode"
+#     echo -e $ENV_PRO >server/.env
+#     ;;
+
+# help | -h)
+#     help
+#     ;;
+# *) help ;;
+# esac

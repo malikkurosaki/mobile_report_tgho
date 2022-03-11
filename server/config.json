@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "port": 3100,
+  "path": "api/v2",
+  "protocol": "http",
+  "ver": "v2",
+  "url": "http://localhost:3100/api/v2/v2"
+}
