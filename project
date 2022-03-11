@@ -165,6 +165,11 @@ else
         *) echo "web" ;;
         esac
         ;;
+    -p) 
+        git add .
+        git commit -m "$(date)"
+        git push origin main
+    ;;
     *) echo "perintah tidak ada -h untuk menampilkan help" ;;
     esac
 fi
