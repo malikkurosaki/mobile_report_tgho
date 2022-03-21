@@ -1,6 +1,6 @@
 {
   "host": "localhost",
-  "port": 3100,
+  "port": 3000,
   "path": "api/v2",
   "protocol": "http",
   "ver": "v2",
