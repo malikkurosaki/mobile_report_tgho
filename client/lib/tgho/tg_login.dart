@@ -100,6 +100,7 @@ class TgLogin extends StatelessWidget {
                     onPressed: () async {
                       try {
                         final login = await TgConn().login(body);
+                        print(login.body);
 
                         if (login.body['success'].toString() == "true") {
                           TgUtilPref.user(value: login.body['data']);
