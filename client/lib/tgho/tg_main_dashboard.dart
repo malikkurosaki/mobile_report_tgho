@@ -976,69 +976,75 @@ class TgMainDashboard extends StatelessWidget {
                                                         cacheWidth: 200,
                                                       ),
                                                       Container(color: Colors.white.withOpacity(0.9)),
-                                                      Padding(
-                                                        padding: const EdgeInsets.all(32),
-                                                        child: DChartBar(
-                                                          data: [
-                                                            {
-                                                              "id": "month",
-                                                              "data": [
-                                                                for (final pie
-                                                                    in TgUtilPref.productMonthReportX['data'])
-                                                                  {
-                                                                    "domain": pie['nama_pro']
-                                                                        .toString()
-                                                                        .split(" ")[0]
-                                                                        .toString(),
-                                                                    "measure":
-                                                                        int.tryParse(pie['totalValue'].toString()) ??
-                                                                            0,
-                                                                  },
-                                                              ]
-                                                            },
-                                                            {
-                                                              "id": "week",
-                                                              "data": [
-                                                                for (final pie
-                                                                    in TgUtilPref.prowductWeekReportX['data'])
-                                                                  {
-                                                                    "domain": pie['nama_pro']
-                                                                        .toString()
-                                                                        .split(" ")[0]
-                                                                        .toString(),
-                                                                    "measure":
-                                                                        int.tryParse(pie['totalValue'].toString()) ??
-                                                                            0,
-                                                                  },
-                                                              ]
-                                                            },
-                                                            {
-                                                              "id": "day",
-                                                              "data": [
-                                                                for (final pie
-                                                                    in TgUtilPref.productDayReportX['data'])
-                                                                  {
-                                                                    "domain": pie['nama_pro']
-                                                                        .toString()
-                                                                        .split(" ")[0]
-                                                                        .toString(),
-                                                                    "measure":
-                                                                        int.tryParse(pie['totalValue'].toString()) ??
-                                                                            0,
-                                                                  },
-                                                              ]
-                                                            }
-                                                          ],
-                                                          barColor: (a, b, c) {
-                                                            return c == "month"
-                                                                ? Colors.blue.withOpacity(0.5)
-                                                                : c == "week"
-                                                                    ? Colors.green.withOpacity(0.5)
-                                                                    : Colors.red.withOpacity(0.5);
-                                                          },
-                                                          showBarValue: true,
-                                                          showDomainLine: true,
-                                                          domainLabelRotation: 45,
+                                                      SingleChildScrollView(
+                                                        scrollDirection: Axis.horizontal,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(32),
+                                                          child: SizedBox(
+                                                            width: 1280,
+                                                            child: DChartBar(
+                                                              data: [
+                                                                {
+                                                                  "id": "month",
+                                                                  "data": [
+                                                                    for (final pie
+                                                                        in TgUtilPref.productMonthReportX['data'])
+                                                                      {
+                                                                        "domain": pie['nama_pro']
+                                                                            .toString()
+                                                                            .split(" ")[0]
+                                                                            .toString(),
+                                                                        "measure":
+                                                                            int.tryParse(pie['totalValue'].toString()) ??
+                                                                                0,
+                                                                      },
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "id": "week",
+                                                                  "data": [
+                                                                    for (final pie
+                                                                        in TgUtilPref.prowductWeekReportX['data'])
+                                                                      {
+                                                                        "domain": pie['nama_pro']
+                                                                            .toString()
+                                                                            .split(" ")[0]
+                                                                            .toString(),
+                                                                        "measure":
+                                                                            int.tryParse(pie['totalValue'].toString()) ??
+                                                                                0,
+                                                                      },
+                                                                  ]
+                                                                },
+                                                                {
+                                                                  "id": "day",
+                                                                  "data": [
+                                                                    for (final pie
+                                                                        in TgUtilPref.productDayReportX['data'])
+                                                                      {
+                                                                        "domain": pie['nama_pro']
+                                                                            .toString()
+                                                                            .split(" ")[0]
+                                                                            .toString(),
+                                                                        "measure":
+                                                                            int.tryParse(pie['totalValue'].toString()) ??
+                                                                                0,
+                                                                      },
+                                                                  ]
+                                                                }
+                                                              ],
+                                                              barColor: (a, b, c) {
+                                                                return c == "month"
+                                                                    ? Colors.blue.withOpacity(0.5)
+                                                                    : c == "week"
+                                                                        ? Colors.green.withOpacity(0.5)
+                                                                        : Colors.red.withOpacity(0.5);
+                                                              },
+                                                              showBarValue: true,
+                                                              showDomainLine: true,
+                                                              domainLabelRotation: 45,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
