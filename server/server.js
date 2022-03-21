@@ -24,8 +24,8 @@ App.use(express.static(path.join(__dirname, './views')));
 App.use(express.urlencoded({extended: true}));
 App.use(express.json())
 App.use(Web);
-App.use('/apiv2', V2Api);
-App.use("/api", Api);
+// App.use('/apiv2', V2Api);
+// App.use("/api", Api);
 
 // 22/03/01 - Add ApiV2
 App.use('/api/v2', ApiV2);
