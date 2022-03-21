@@ -1,7 +1,7 @@
 
 function WhereHelper(query) {
      /**@type {String} */
-     let tg2 = query.tgl2??"";
+     let tg2 = query.tgl2 == null?"":query.tgl2;
 
      /**@type {String} */
      let tg1 = query.tgl1??"";

@@ -4,7 +4,7 @@ const moment = require('moment');
 const prisma = new PrismaClient();
 
 const SalesPerformanceMonth = expressAsyncHandler(async (req, res) => {
-    let tanggal = req.query.date ? Date.now() : req.query.date
+    let tanggal = req.query.date == null ? Date.now() : req.query.date
     let weekStart = moment(tanggal).startOf('month');
     let weekEnd = moment(tanggal).endOf('month');
 
