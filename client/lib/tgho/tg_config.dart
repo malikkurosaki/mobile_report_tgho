@@ -5,6 +5,6 @@ class TgConfig {
   static const String prefix = 'api';
   static const String protocol = 'http';
   static const String version = 'v2';
-  static const String baseUrl = 'http://:3100//';
+  static const String baseUrl = '://://';
 }
 
