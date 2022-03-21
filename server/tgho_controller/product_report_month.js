@@ -5,11 +5,15 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const ProductReportMonth = expressAsyncHandler(async (req, res) => {
+
+    /**@type [] */
+    let resultMonth = [];
+    
     let topProductMonth = await prisma.produk.findMany({
         select: {
             nama_pro: true,
             _count: {
-                select:{
+                select: {
                     bill: true
                 }
             }
@@ -32,8 +36,8 @@ const ProductReportMonth = expressAsyncHandler(async (req, res) => {
         take: 20
     })
 
-    let resultMonth = []
-    for(let p of topProductMonth ){
+    
+    for (let p of topProductMonth) {
         let { nama_pro, _count } = p
         let tottal = await prisma.bill.aggregate({
             _sum: {
@@ -49,13 +53,23 @@ const ProductReportMonth = expressAsyncHandler(async (req, res) => {
         let data = {
             "nama_pro": nama_pro,
             "totalBill": _count.bill,
-            "tottalValue": tottal._sum.harga_pro
+            "totalValue": tottal._sum.harga_pro
         }
 
         resultMonth.push(data)
     }
 
-    res.json(resultMonth)
+
+    res.json({
+        "success": resultMonth.length > 0,
+        "data": {
+            "date": {
+                "start": moment().startOf("month").format("YYYY-MM-DD"),
+                "end": moment().endOf("month").format("YYYY-MM-DD")
+            },
+            "data": resultMonth
+        }
+    })
 
 })
 

@@ -5,11 +5,15 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const ProductReportToday = expressAsyncHandler(async (req, res) => {
+
+    /**@type [] */
+    let resultToday = [];
+
     let topProductToday = await prisma.produk.findMany({
         select: {
             nama_pro: true,
             _count: {
-                select:{
+                select: {
                     bill: true
                 }
             }
@@ -32,8 +36,9 @@ const ProductReportToday = expressAsyncHandler(async (req, res) => {
         take: 20
     })
 
-    let resultToday = []
-    for(let p of topProductToday ){
+
+
+    for (let p of topProductToday) {
         let { nama_pro, _count } = p
         let tottal = await prisma.bill.aggregate({
             _sum: {
@@ -49,13 +54,22 @@ const ProductReportToday = expressAsyncHandler(async (req, res) => {
         let data = {
             "nama_pro": nama_pro,
             "totalBill": _count.bill,
-            "tottalValue": tottal._sum.harga_pro
+            "totalValue": tottal._sum.harga_pro
         }
 
         resultToday.push(data)
     }
 
-    res.json(resultToday)
+    res.json({
+        "success": resultToday.length > 0,
+        "data": {
+            "date": {
+                "start": moment().startOf("day").format("YYYY-MM-DD"),
+                "end": moment().endOf("day").format("YYYY-MM-DD")
+            },
+            "data": resultToday
+        }
+    })
 })
 
-module.exports = {ProductReportToday}
+module.exports = { ProductReportToday }

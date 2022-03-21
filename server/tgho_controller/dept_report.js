@@ -5,12 +5,19 @@ const moment = require("moment");
 
 const ByDeptReport = expressAsyncHandler(async (req, res) => {
     let dept = await prisma.acc_dept.findMany();
+
     let result = [];
+
     for (let i of dept) {
         let year = await prisma.listbill.aggregate({
             _avg: {
                 total: true,
                 net: true
+            },
+            _sum: {
+                total: true,
+                net: true,
+                gtotal: true
             },
             where: {
                 tanggal: {
@@ -52,9 +59,10 @@ const ByDeptReport = expressAsyncHandler(async (req, res) => {
         });
 
         let week = await prisma.listbill.aggregate({
-            _avg: {
+            _sum: {
                 total: true,
                 net: true
+
             },
             where: {
                 tanggal: {
@@ -95,11 +103,14 @@ const ByDeptReport = expressAsyncHandler(async (req, res) => {
     }
 
     res.json({
-        "year": {
-            "first": moment().startOf("year").format("YYYY-MM-DD"),
-            "last": moment().endOf("year").format("YYYY-MM-DD")
-        },
-        "data": result
+        success: result.length > 0,
+        data: {
+            "year": {
+                "first": moment().startOf("year").format("YYYY-MM-DD"),
+                "last": moment().endOf("year").format("YYYY-MM-DD")
+            },
+            "data": result
+        }
     });
 });
 

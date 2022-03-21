@@ -77,7 +77,10 @@ const TotalListBillreport = expressAsyncHandler(async (req, res) => {
         }
     }
 
-    res.json(data)
+    res.json({
+        success: true,
+        data: data
+    })
 })
 
 module.exports = { TotalListBillreport }

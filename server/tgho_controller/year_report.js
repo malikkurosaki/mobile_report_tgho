@@ -3,17 +3,30 @@ const expressAsyncHandler = require("express-async-handler");
 const prisma = new PrismaClient();
 const moment = require("moment");
 
-/**@type Prisma.ListbillAggregateArgs */
-const options = {
-    _avg: {
-        total: true,
-        net: true
-    },
+const map = {
+    total: true,
+    net: true,
+    gtotal: true,
+    taxrp: true,
+    pax: true,
 }
+
+// /**@type Prisma.ListbillAggregateArgs */
+// const options = {
+//     _avg: {
+//         total: true,
+//         net: true
+//     },
+//     _count: map
+// }
 
 const YearReport = expressAsyncHandler(async (req, res) => {
     let year = await prisma.listbill.aggregate({
-        _avg: options._avg,
+        _avg: map,
+        _count: map,
+        _max: map,
+        _min: map,
+        _sum: map,
         where: {
             tanggal: {
                 gte: new Date(moment().startOf('year').format("YYYY-MM-DD")),
@@ -24,7 +37,12 @@ const YearReport = expressAsyncHandler(async (req, res) => {
     })
 
     let month = await prisma.listbill.aggregate({
-        _avg: options._avg,
+        _avg: map,
+        _count: map,
+        _max: map,
+        _min: map,
+        _sum: map,
+
         where: {
             tanggal: {
                 gte: new Date(moment().startOf('month').format("YYYY-MM-DD")),
@@ -34,7 +52,11 @@ const YearReport = expressAsyncHandler(async (req, res) => {
     })
 
     let week = await prisma.listbill.aggregate({
-        _avg: options._avg,
+        _avg: map,
+        _count: map,
+        _max: map,
+        _min: map,
+        _sum: map,
         where: {
             tanggal: {
                 gte: new Date(moment().startOf('week').format("YYYY-MM-DD")),
@@ -43,22 +65,45 @@ const YearReport = expressAsyncHandler(async (req, res) => {
         }
     })
 
+    let day = await prisma.listbill.aggregate({
+        _avg: map,
+        _count: map,
+        _max: map,
+        _min: map,
+        _sum: map,
+        where: {
+            tanggal: {
+                gte: new Date(moment().startOf('day').format("YYYY-MM-DD")),
+                lte: new Date(moment().endOf('day').format("YYYY-MM-DD"))
+            }
+        }
+    })
+
+
 
     res.json({
-        "year": {
-            "first": moment().startOf('year').format("YYYY-MM-DD"),
-            "last": moment().endOf('year').format("YYYY-MM-DD"),
-            "data": year
-        },
-        "month": {
-            "first": moment().startOf('month').format("YYYY-MM-DD"),
-            "last": moment().endOf('month').format("YYYY-MM-DD"),
-            "data": month
-        },
-        "week": {
-            "first": moment().startOf('week').format("YYYY-MM-DD"),
-            "last": moment().endOf('week').format("YYYY-MM-DD"),
-            "data": week
+        success: true,
+        data: {
+            "year": {
+                "first": moment().startOf('year').format("YYYY-MM-DD"),
+                "last": moment().endOf('year').format("YYYY-MM-DD"),
+                "data": year
+            },
+            "month": {
+                "first": moment().startOf('month').format("YYYY-MM-DD"),
+                "last": moment().endOf('month').format("YYYY-MM-DD"),
+                "data": month
+            },
+            "week": {
+                "first": moment().startOf('week').format("YYYY-MM-DD"),
+                "last": moment().endOf('week').format("YYYY-MM-DD"),
+                "data": week
+            },
+            "day": {
+                "first": moment().startOf('day').format("YYYY-MM-DD"),
+                "last": moment().endOf('day').format("YYYY-MM-DD"),
+                "data": day
+            }
         }
     })
 
