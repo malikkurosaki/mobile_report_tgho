@@ -6,10 +6,7 @@ import 'package:mobile_report/tgho/tg_util_pref.dart';
 
 class TgLogin extends StatelessWidget {
   TgLogin({Key? key}) : super(key: key);
-  final body = {
-    "name": "",
-    "password": ""
-  };
+  final body = {"name": "", "password": ""};
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +46,9 @@ class TgLogin extends StatelessWidget {
                       ),
                       // description info
                       Center(
-                        child: Text("lengkapi data dibawa ini untuk melanjutkan", 
-                          style: TextStyle(
-                            color: Colors.blueGrey
-                          ),
+                        child: Text(
+                          "lengkapi data dibawa ini untuk melanjutkan",
+                          style: TextStyle(color: Colors.blueGrey),
                         ),
                       ),
                       SizedBox(
@@ -61,15 +57,14 @@ class TgLogin extends StatelessWidget {
                       // input form username
                       ListTile(
                         title: TextField(
-                          onChanged: (value) => body['name']  = value,
+                          onChanged: (value) => body['name'] = value,
                           textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.account_box_rounded),
-                            labelText: "Username",
-                            fillColor: Colors.blueGrey[50],
-                            filled: true,
-                            border: InputBorder.none
-                          ),
+                              prefixIcon: Icon(Icons.account_box_rounded),
+                              labelText: "Username",
+                              fillColor: Colors.blueGrey[50],
+                              filled: true,
+                              border: InputBorder.none),
                         ),
                       ),
                       // input form password
@@ -96,23 +91,26 @@ class TgLogin extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(12),
                       child: Center(
-                        child: Text("Login",
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
-                    onPressed: ()async {
-                      final login = await TgConn().login(body);
+                    onPressed: () async {
+                      try {
+                        final login = await TgConn().login(body);
 
-                      if(login.body['success'].toString() == "true"){
-                        TgUtilPref.user(value: login.body['data']);
-                        TgRouter.root().goOffAll();
-                        return;
+                        if (login.body['success'].toString() == "true") {
+                          TgUtilPref.user(value: login.body['data']);
+                          TgRouter.root().goOffAll();
+                          return;
+                        }
+
+                        EasyLoading.showToast("user or password failed");
+                      } catch (e) {
+                        print(e.toString()); 
                       }
-
-                      EasyLoading.showToast("user or password failed");
                     },
                   ),
                 ),
