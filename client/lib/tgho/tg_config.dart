@@ -1,4 +1,4 @@
-class Conf {
+class TgConfig {
   static const String host = 'localhost';
   static const int port = 3000;
   static const String prefix = 'api';

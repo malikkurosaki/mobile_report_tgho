@@ -8,6 +8,7 @@ const cors = require('cors');
 const { ApiV2 } = require('./api_v2');
 const fs = require('fs');
 const path = require('path');
+const { Config } = require('./tgho_controller/tg_config');
 
 
 /**@type {{
@@ -16,7 +17,7 @@ const path = require('path');
   path: string,
   protocol: string
 }} */
-const config = JSON.parse(fs.readFileSync('config.json'));
+// const config = JSON.parse(fs.readFileSync('config.json'));
 
 App.use(cors());
 App.use(express.static(path.join(__dirname, './views')));
@@ -33,6 +34,6 @@ App.use('/api/v2', ApiV2);
 App.use((req, res, next) => res.status(404).send("404 | not found"));
 App.use((req, res, next) => res.status(500).send("500 | server error"))
 
-App.listen(config.port, () => console.log(`${config.protocol}://${config.host}:${config.port}`));
+App.listen(Config.port, () => console.log(`${Config.protocol}://${Config.host}:${Config.port}`));
 
 module.exports = App
