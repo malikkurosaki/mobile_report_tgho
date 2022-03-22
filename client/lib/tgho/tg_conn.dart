@@ -30,4 +30,7 @@ class TgConn extends GetConnect{
   // login
   Future<Response> login(Map body) => post(TgConfig.baseUrl+'/login', body);
 
+  // ping
+  Future<Response> ping() => get(TgConfig.baseUrl+'/ping');
+
 }

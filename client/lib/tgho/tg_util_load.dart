@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile_report/pref.dart';
 import 'package:mobile_report/tgho/tg_conn.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,6 @@ class TgUtilLoad {
 
   // product year
   productYear() async {
-    
     final year = await TgConn().getProductReportYear();
     if (year.body['success'].toString() == "true") {
       TgUtilPref.productYearReport(value: year.body['data']);
@@ -96,4 +96,16 @@ class TgUtilLoad {
 
     print("==> load dept report");
   }
+
+  Widget ping() => FutureBuilder<Response>(
+        builder: (context, snapshot) => Visibility(
+                visible: snapshot.connectionState == ConnectionState.done && snapshot.data!.body.toString() == "null",
+                child: Center(
+                  child: Text(
+                    "failed connect server ..",
+                    style: TextStyle(fontSize: 12, color: Colors.red[100]),
+                  ),
+                ),
+              ),
+      );
 }
