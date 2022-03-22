@@ -11,6 +11,12 @@ const {Revenue} = require('./tgho_controller/revelue');
 const { TgLogin } = require('./tgho_controller/tg_login');
 const ApiV2 = express.Router();
 
+ApiV2.get("/", (req, res) => {
+    res.send(`<html>
+    <img src="https://i.pinimg.com/originals/f4/b1/b1/f4b1b1c8f9f9f9f9f9f9f9f9f9f9f9f9.jpg" alt="">
+    </html>`);
+});
+
 // with query 
 ApiV2.get('/dashboard', Dashboard)
 ApiV2.get('/yearReport', YearReport)
