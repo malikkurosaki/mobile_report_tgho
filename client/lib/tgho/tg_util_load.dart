@@ -98,13 +98,18 @@ class TgUtilLoad {
   }
 
   Widget ping() => FutureBuilder<Response>(
-        builder: (context, snapshot) => Visibility(
-                visible: snapshot.connectionState == ConnectionState.done && snapshot.data!.body.toString() == "null",
+    future: TgConn().ping(),
+        builder: (context, snapshot) => snapshot.connectionState != ConnectionState.done
+            ? Center(
+                child: Text("Connecting ..."),
+              )
+            : Visibility(
+                visible: snapshot.connectionState == ConnectionState.done,
                 child: Center(
-                  child: Text(
-                    "failed connect server ..",
+                  child: snapshot.data!.body.toString() != "true"? Text(
+                    snapshot.data!.body.toString(),
                     style: TextStyle(fontSize: 12, color: Colors.red[100]),
-                  ),
+                  ): SizedBox.shrink(),
                 ),
               ),
       );

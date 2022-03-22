@@ -15,6 +15,7 @@ class TgSubTotalRevenueByGroup extends StatelessWidget {
       () => TgUtilPref.reportX.isEmpty
           ? Text("loading ...")
           : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),

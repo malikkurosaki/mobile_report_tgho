@@ -11,6 +11,8 @@ import 'package:isolated_worker/isolated_worker.dart';
 import 'package:json_table/json_table.dart';
 import 'package:mobile_report/tgho/tg_dept_report.dart';
 import 'package:mobile_report/tgho/tg_sub_best_product.dart';
+import 'package:mobile_report/tgho/tg_sub_product_year.dart';
+import 'package:mobile_report/tgho/tg_sub_revenue_by_departement.dart';
 import 'package:mobile_report/tgho/tg_sub_total_revenue_by_group.dart';
 import 'package:mobile_report/tgho/tg_sub_year_to_day.dart';
 import 'package:mobile_report/tgho/tg_util_pref.dart';
@@ -45,6 +47,7 @@ class TgMainDashboard extends StatelessWidget {
         padding: EdgeInsets.all(8),
         child: Column(
           children: [
+            TgUtilLoad().ping(),
             FutureBuilder(
               future: onLoad(),
               builder: (context, snapshot) => SizedBox.shrink(),
@@ -58,9 +61,13 @@ class TgMainDashboard extends StatelessWidget {
                   child: ListView(
                     children: [
                       TgSubYearToDay(sizingInformation: sizingInformation),
+                      SizedBox(height: 20),
                       TgSubTotalRevenueByGroup(sizingInformation: sizingInformation),
-                      
-
+                      SizedBox(height: 20),
+                      TgSubRevenueByDepartement(sizingInformation: sizingInformation),
+                      SizedBox(height: 20),
+                      TgSubProductYear(),
+                      //TgSubBestProduct(),
                     ],
                   )
                   // ListView(

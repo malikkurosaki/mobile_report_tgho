@@ -19,14 +19,7 @@ const { Config } = require('./tgho_controller/tg_config');
 }} */
 // const config = JSON.parse(fs.readFileSync('config.json'));
 
-App.use(cors(
-  {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    credentials: true
-  }
-));
+App.use(cors());
 App.use(express.static(path.join(__dirname, './views')));
 App.use(express.urlencoded({extended: true}));
 App.use(express.json())
