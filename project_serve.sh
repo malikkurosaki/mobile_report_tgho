@@ -14,6 +14,9 @@ if [[ $# -ne 0 ]]; then
     -delete)
         pm2 delete ecosystem.config.js
         ;;
+    -server-only)
+        pm2 start ecosystem.config.js --only server
+    ;;
     *) echo 'start, stop, restart, delete' ;;
     esac
 else
