@@ -26,14 +26,15 @@ class TgLogin extends StatelessWidget {
               child: ListView(
                 children: [
                   TgUtilLoad().ping(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.account_circle,
-                      size: 100,
-                      color: Colors.blueGrey,
-                    ),
-                  ),
+                  Image.asset("assets/images/bg_login.png"),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Icon(
+                  //     Icons.account_circle,
+                  //     size: 100,
+                  //     color: Colors.blueGrey,
+                  //   ),
+                  // ),
                   // description info
                   Center(
                     child: Text(
@@ -42,7 +43,7 @@ class TgLogin extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
                   // input form username
                   ListTile(
@@ -76,9 +77,9 @@ class TgLogin extends StatelessWidget {
                   ),
                   ListTile(
                     title: MaterialButton(
-                      color: Colors.blueGrey,
+                      color: Colors.blue,
                       child: Container(
-                        padding: EdgeInsets.all(12),
+                        padding: EdgeInsets.all(16),
                         child: Center(
                           child: Text(
                             "Login",

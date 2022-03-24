@@ -2,5 +2,8 @@
 project
 **/node_modules/
 project
-!/server/.env
-!**/server/prisma/
+!server/.env
+!server/prisma/
+x_bin/
+project.bak
+project.sh
