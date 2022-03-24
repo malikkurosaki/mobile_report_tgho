@@ -21,13 +21,13 @@ const https = require('expressjs-force-https');
 }} */
 // const config = JSON.parse(fs.readFileSync('config.json'));
 
-if(Config.PROTOCOL === 'https'){
-App.use(https());
+if (Config.PROTOCOL === 'https') {
+  App.use(https);
 }
 
 App.use(cors());
 App.use(express.static(path.join(__dirname, './views')));
-App.use(express.urlencoded({extended: true}));
+App.use(express.urlencoded({ extended: true }));
 App.use(express.json())
 App.use(Web);
 // App.use('/apiv2', V2Api);
