@@ -56,6 +56,7 @@ class TgMainDashboard extends StatelessWidget {
               child: RefreshIndicator(
                   onRefresh: () async {
                     EasyLoading.showToast("Load Data ...");
+                    TgUtilVal.ping.refresh();
                     await onLoad();
                   },
                   child: ListView(
