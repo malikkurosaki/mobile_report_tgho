@@ -1,10 +1,10 @@
 
 function WhereHelper(query) {
      /**@type {String} */
-     let tg2 = query.tgl2??"";
+     let tg2 = query.tgl2 == null?"":query.tgl2;
 
      /**@type {String} */
-     let tg1 = query.tgl1??"";
+     let tg1 = query.tgl1 == null?"": query.tgl1;
     let where = {
         tanggal: {
             lte: new Date(tg2.includes(" ")? tg2.split(" ")[0]: tg2),

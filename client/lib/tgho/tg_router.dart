@@ -14,7 +14,7 @@ import 'tg_dept_report.dart';
 import 'tg_performance.dart';
 import 'tg_product_report.dart';
 import 'tg_root.dart';
-import 'tg_wellcome.dart';
+import 'tg_page_wellcome.dart';
 
 class TgRouter{
   late String key;
@@ -55,7 +55,7 @@ class TgRouter{
     // dept report
     GetPage(name: TgRouter.deptReport().key, page: () => TgDeptReport()),
     // wellcome
-    GetPage(name: TgRouter.wellcome().key, page: () => TgWellcome()),
+    GetPage(name: TgRouter.wellcome().key, page: () => TgPageWellcome()),
     // login
     GetPage(name: TgRouter.login().key, page: () => TgLogin()),
   ];

@@ -3,6 +3,7 @@ class TgUtilVal{
   static final dashboard = <String, dynamic>{}.obs;
   static final master = <String, dynamic>{}.obs;
   static final syncData = false.obs;
+  static final ping = true.obs;
 
   // product erport
   static final listProductReportYear = <String, dynamic>{}.obs;

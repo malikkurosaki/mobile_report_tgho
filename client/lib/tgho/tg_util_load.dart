@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile_report/pref.dart';
 import 'package:mobile_report/tgho/tg_conn.dart';
 import 'package:get/get.dart';
@@ -12,34 +13,36 @@ class TgUtilLoad {
     // get data from server
     final data = await TgConn().getDashboard("2022-02-10", "2022-03-01", "all", "all");
 
-    if (data.body['success'].toString() == "true") {
-      // dashboard
-      // TgPref.dashboard(value: data.body['data']['data']??{});
+    try {
+      if (data.body['success'].toString() == "true") {
+        // dashboard
+        // TgPref.dashboard(value: data.body['data']['data']??{});
 
-      // master
-      TgUtilPref.master(value: data.body['data']['master'] ?? {});
+        // master
+        TgUtilPref.master(value: data.body['data']['master'] ?? {});
 
-      // dashboard report
-      // TgPref.dashboardReport(value: data.body['data']['report'] ?? {});
+        // dashboard report
+        // TgPref.dashboardReport(value: data.body['data']['report'] ?? {});
 
-      // report
-      TgUtilPref.report(value: data.body['data']['report'] ?? {});
-      // by group
-      TgUtilPref.reportByGroup(value: data.body['data']['report']['byGroup'] ?? []);
-      // by outlet
-      TgUtilPref.reportByOut(value: data.body['data']['report']['byOut'] ?? []);
-      // by dept
-      TgUtilPref.reportByDept(value: data.body['data']['report']['byDept'] ?? []);
-      // by total
-      TgUtilPref.reportByTotal(value: data.body['data']['report']['byTotal'] ?? {});
+        // report
+        TgUtilPref.report(value: data.body['data']['report'] ?? {});
+        // by group
+        TgUtilPref.reportByGroup(value: data.body['data']['report']['byGroup'] ?? []);
+        // by outlet
+        TgUtilPref.reportByOut(value: data.body['data']['report']['byOut'] ?? []);
+        // by dept
+        TgUtilPref.reportByDept(value: data.body['data']['report']['byDept'] ?? []);
+        // by total
+        TgUtilPref.reportByTotal(value: data.body['data']['report']['byTotal'] ?? {});
+      }
+    } catch (e) {
+      print(e.toString());
     }
-
     print("==>load dasboard");
   }
 
   // product year
   productYear() async {
-    
     final year = await TgConn().getProductReportYear();
     if (year.body['success'].toString() == "true") {
       TgUtilPref.productYearReport(value: year.body['data']);
@@ -96,4 +99,31 @@ class TgUtilLoad {
 
     print("==> load dept report");
   }
+
+  Widget ping() => Obx(
+        () => TgUtilVal.ping.value? FutureBuilder<Response>(
+          future: TgConn().ping(),
+          builder: (context, snapshot) => snapshot.connectionState != ConnectionState.done
+              ? Center(
+                  child: Text("load new data ... ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                )
+              : Visibility(
+                  visible: snapshot.connectionState == ConnectionState.done,
+                  child: Center(
+                    child: snapshot.data!.body.toString() != "true"
+                        ? Text(
+                            "Server Timeout ...",
+                            style: TextStyle(fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
+                          )
+                        : SizedBox.shrink(),
+                  ),
+                ),
+        ): SizedBox.shrink(),
+      );
 }

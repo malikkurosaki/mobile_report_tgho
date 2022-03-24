@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:mobile_report/tgho/tg_util_pref.dart';
 import 'package:mobile_report/tgho/tg_router.dart';
@@ -39,7 +40,8 @@ class TgSidebar extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: NetworkImage(
-                          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&w=1000&q=80"),
+                        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -64,46 +66,60 @@ class TgSidebar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.home),
-            onTap: () {},
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("Home"),
           ),
           ListTile(
             leading: Icon(Icons.stairs_outlined),
-            onTap: () {},
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("Product"),
           ),
           // performance report
           ListTile(
             leading: Icon(Icons.settings_input_antenna),
-            onTap: () {},
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("Performance"),
           ),
           // dept report
           ListTile(
             leading: Icon(Icons.account_tree_sharp),
-            onTap: () {},
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("Dept Report"),
           ),
           ListTile(
             leading: Icon(Icons.new_releases_sharp),
-            onTap: () {},
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("News"),
           ),
           ListTile(
             leading: Icon(Icons.settings_system_daydream),
-            onTap: () {},
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("Products"),
           ),
           ListTile(
             leading: Icon(Icons.bug_report_outlined),
-            onTap: () => TgRouter.developer().go(),
+            onTap: () {
+              EasyLoading.showToast("under contruction");
+            },
             title: Text("Developers"),
           ),
           // logout
           ListTile(
             leading: Icon(Icons.exit_to_app),
             onTap: () {
-             Get.dialog(
+              Get.dialog(
                 AlertDialog(
                   title: Text("Logout"),
                   content: Text("Are you sure?"),
@@ -112,6 +128,7 @@ class TgSidebar extends StatelessWidget {
                       child: Text("Yes"),
                       onPressed: () {
                         TgUtilPref.user(value: {});
+                        TgUtilPref.wellcome(value: true);
                         TgRouter.root().goOff();
                       },
                     ),

@@ -23,6 +23,7 @@
     "date-fns": "^2.28.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.2.0",
+    "expressjs-force-https": "^2.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "momentjs": "^2.0.0",

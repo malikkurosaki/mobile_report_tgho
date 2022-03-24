@@ -6,7 +6,7 @@ const moment = require('moment');
 
 const SalesPerformanceWeek = expressAsyncHandler(async (req, res) => {
    
-    let tanggal = req.query.date?? Date.now()
+    let tanggal = req.query.date == null ? Date.now() : req.query.date
     let weekStart = moment(tanggal).startOf('week');
     let weekEnd = moment(tanggal).endOf('week');
 

@@ -11,6 +11,10 @@ const {Revenue} = require('./tgho_controller/revelue');
 const { TgLogin } = require('./tgho_controller/tg_login');
 const ApiV2 = express.Router();
 
+ApiV2.get("/ping", (req, res) => {
+    res.send(true);
+});
+
 // with query 
 ApiV2.get('/dashboard', Dashboard)
 ApiV2.get('/yearReport', YearReport)
