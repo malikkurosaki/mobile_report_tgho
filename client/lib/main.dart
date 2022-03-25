@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mobile_report/Val.dart';
 import 'package:mobile_report/models.dart';
 import 'package:mobile_report/tgho/tg_router.dart';
+import 'package:mobile_report/tgho/tg_util_load.dart';
 import 'package:mobile_report/v2_router.dart';
 import 'package:mobile_report/splash.dart';
 import 'package:mobile_report/v2_models.dart';
@@ -18,6 +19,7 @@ import 'package:mobile_report/v2_val.dart';
 
 void main() async {
   await GetStorage.init();
+  TgUtilLoad().loadFirst();
 
   // deprecated [akan dihapus karena kemungkinan tidak digunakan]
   // Val.config = ModelConfig.fromJson(

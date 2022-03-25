@@ -8,6 +8,24 @@ import 'tg_util_val.dart';
 class TgUtilLoad {
   TgUtilLoad();
 
+  loadFirst() async {
+    TgUtilPref.report();
+    TgUtilPref.reportByTotal();
+    TgUtilPref.reportByGroup();
+    TgUtilPref.reportByDept();
+    TgUtilPref.reportByOut();
+    TgUtilPref.productYearReport();
+    TgUtilPref.productMonthReport();
+    TgUtilPref.productWeekReport();
+    TgUtilPref.productDayReport();
+
+    await productMonth();
+    await dashboard();
+    await productYear();
+    await productWeek();
+    await productDay();
+  }
+
   // dashboard
   dashboard() async {
     // get data from server
@@ -101,29 +119,32 @@ class TgUtilLoad {
   }
 
   Widget ping() => Obx(
-        () => TgUtilVal.ping.value? FutureBuilder<Response>(
-          future: TgConn().ping(),
-          builder: (context, snapshot) => snapshot.connectionState != ConnectionState.done
-              ? Center(
-                  child: Text("load new data ... ",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                  ),
-                )
-              : Visibility(
-                  visible: snapshot.connectionState == ConnectionState.done,
-                  child: Center(
-                    child: snapshot.data!.body.toString() != "true"
-                        ? Text(
-                            "Server Timeout ...",
-                            style: TextStyle(fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
-                          )
-                        : SizedBox.shrink(),
-                  ),
-                ),
-        ): SizedBox.shrink(),
+        () => TgUtilVal.ping.value
+            ? FutureBuilder<Response>(
+                future: TgConn().ping(),
+                builder: (context, snapshot) => snapshot.connectionState != ConnectionState.done
+                    ? Center(
+                        child: Text(
+                          "load new data ... ",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                      )
+                    : Visibility(
+                        visible: snapshot.connectionState == ConnectionState.done,
+                        child: Center(
+                          child: snapshot.data!.body.toString() != "true"
+                              ? Text(
+                                  "Server Timeout ...",
+                                  style: TextStyle(fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
+                                )
+                              : SizedBox.shrink(),
+                        ),
+                      ),
+              )
+            : SizedBox.shrink(),
       );
 }

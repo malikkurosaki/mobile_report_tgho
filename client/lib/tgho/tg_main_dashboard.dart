@@ -48,10 +48,25 @@ class TgMainDashboard extends StatelessWidget {
         child: Column(
           children: [
             TgUtilLoad().ping(),
-            FutureBuilder(
-              future: onLoad(),
-              builder: (context, snapshot) => SizedBox.shrink(),
+            Visibility(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  onPressed: () async{
+                    TgUtilVal.ping.refresh();
+                    EasyLoading.showToast("load Data");
+                    await onLoad();
+                    EasyLoading.showToast("data has loaded");
+                  }, 
+                  icon: Icon(Icons.refresh)
+                ),
+              ),
+              visible: !sizingInformation.isMobile,
             ),
+            // FutureBuilder(
+            //   future: onLoad(),
+            //   builder: (context, snapshot) => SizedBox.shrink(),
+            // ),
             Flexible(
               child: RefreshIndicator(
                   onRefresh: () async {

@@ -14,7 +14,7 @@ class TgLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.blueGrey[800],
+      color: Colors.blueGrey[50],
       child: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -26,7 +26,16 @@ class TgLogin extends StatelessWidget {
               child: ListView(
                 children: [
                   TgUtilLoad().ping(),
-                  Image.asset("assets/images/bg_login.png"),
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      width: 200,
+                      child: Image.network(
+                        "https://i.postimg.cc/XJYdfcjT/image.png",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                   // Padding(
                   //   padding: const EdgeInsets.all(8.0),
                   //   child: Icon(
@@ -36,14 +45,11 @@ class TgLogin extends StatelessWidget {
                   //   ),
                   // ),
                   // description info
-                  Center(
-                    child: Text(
+                  ListTile(
+                    title: Text(
                       "lengkapi data dibawa ini untuk melanjutkan",
                       style: TextStyle(color: Colors.blueGrey),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
                   ),
                   // input form username
                   ListTile(
@@ -79,7 +85,7 @@ class TgLogin extends StatelessWidget {
                     title: MaterialButton(
                       color: Colors.blue,
                       child: Container(
-                        padding: EdgeInsets.all(16),
+                        padding: EdgeInsets.all(12),
                         child: Center(
                           child: Text(
                             "Login",
