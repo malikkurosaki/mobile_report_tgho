@@ -56,7 +56,7 @@ class TgPageWellcome extends StatelessWidget {
                               width: double.infinity,
                               height: double.infinity,
                               child: Image.asset(
-                                "assets/images/bg_wellcome.jpg",
+                                "assets/images/bg_wellcome.png",
                                 fit: BoxFit.cover,
                               )),
                           Container(
