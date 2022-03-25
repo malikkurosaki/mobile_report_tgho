@@ -48,15 +48,19 @@ class TgSubProductYear extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        DateFormat("dd MMMM yyyy").format(
-                                            DateTime.parse(TgUtilPref.productYearReportX['date']['start'].toString())),
-                                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                                      Expanded(
+                                        child: Text(
+                                          DateFormat("dd MMMM yyyy").format(
+                                              DateTime.parse(TgUtilPref.productYearReportX['date']['start'].toString())),
+                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                                        ),
                                       ),
-                                      Text(
-                                        DateFormat("dd MMMM yyyy").format(
-                                            DateTime.parse(TgUtilPref.productYearReportX['date']['end'].toString())),
-                                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                                      Expanded(
+                                        child: Text(
+                                          DateFormat("dd MMMM yyyy").format(
+                                              DateTime.parse(TgUtilPref.productYearReportX['date']['end'].toString())),
+                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                                        ),
                                       ),
                                     ],
                                   ),

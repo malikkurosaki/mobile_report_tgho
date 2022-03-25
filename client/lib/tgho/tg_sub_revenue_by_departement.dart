@@ -234,22 +234,26 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                DateFormat("dd MMMM yyyy").format(
-                                                    DateTime.parse(i['data']['month']['date']['start'].toString())),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
+                                              Expanded(
+                                                child: Text(
+                                                  DateFormat("dd MMMM yyyy").format(
+                                                      DateTime.parse(i['data']['month']['date']['start'].toString())),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                DateFormat("dd MMMM yyyy").format(
-                                                    DateTime.parse(i['data']['month']['date']['end'].toString())),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
+                                              Expanded(
+                                                child: Text(
+                                                  DateFormat("dd MMMM yyyy").format(
+                                                      DateTime.parse(i['data']['month']['date']['end'].toString())),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -281,22 +285,26 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                DateFormat("dd MMMM yyyy").format(
-                                                    DateTime.parse(i['data']['week']['date']['start'].toString())),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
+                                              Expanded(
+                                                child: Text(
+                                                  DateFormat("dd MMMM yyyy").format(
+                                                      DateTime.parse(i['data']['week']['date']['start'].toString())),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                DateFormat("dd MMMM yyyy").format(
-                                                    DateTime.parse(i['data']['week']['date']['end'].toString())),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
+                                              Expanded(
+                                                child: Text(
+                                                  DateFormat("dd MMMM yyyy").format(
+                                                      DateTime.parse(i['data']['week']['date']['end'].toString())),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -328,22 +336,26 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                DateFormat("dd MMMM yyyy").format(
-                                                    DateTime.parse(i['data']['day']['date']['start'].toString())),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
+                                              Expanded(
+                                                child: Text(
+                                                  DateFormat("dd MMMM yyyy").format(
+                                                      DateTime.parse(i['data']['day']['date']['start'].toString())),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                DateFormat("dd MMMM yyyy")
-                                                    .format(DateTime.parse(i['data']['day']['date']['end'].toString())),
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
+                                              Expanded(
+                                                child: Text(
+                                                  DateFormat("dd MMMM yyyy")
+                                                      .format(DateTime.parse(i['data']['day']['date']['end'].toString())),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                  ),
                                                 ),
                                               ),
                                             ],
