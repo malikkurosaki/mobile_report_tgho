@@ -1,9 +1,9 @@
 
 class Config{
-    static HOST = "report-mobile-dev.probussystem.net";
-    static PROTOCOL = "https";
+    static HOST = "localhost";
+    static PROTOCOL = "http";
     static PORT = "3000";
 }
 
 module.exports = {Config}
-
+    
