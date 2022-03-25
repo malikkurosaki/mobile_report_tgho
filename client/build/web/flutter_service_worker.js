@@ -7,13 +7,8 @@ const RESOURCES = {
 "splash/img/light-background.png": "cc19a63b0c907863d748754c965b39c9",
 "splash/splash.js": "c6a271349a0cd249bdb6d3c4d12f5dcf",
 "splash/style.css": "8327a119a599f3bd070470049ad2e7e5",
-<<<<<<< HEAD
-"index.html": "543c820c94b50fc177604b478d05a32a",
-"/": "543c820c94b50fc177604b478d05a32a",
-=======
-"index.html": "954aec57e75d3d157e41af9585fe56e2",
-"/": "954aec57e75d3d157e41af9585fe56e2",
->>>>>>> alpha001
+"index.html": "46815815421a5f7ee6d86e7b11536b7e",
+"/": "46815815421a5f7ee6d86e7b11536b7e",
 "main.dart.js": "a459146435e38a7b985b69c3d9cf5f1e",
 "worker.js": "8857a5ab54124f196d3dc194c2b6fae7",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
