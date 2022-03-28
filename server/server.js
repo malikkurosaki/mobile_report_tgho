@@ -13,9 +13,9 @@ const https = require('expressjs-force-https');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const localStorage = new LocalStorage('./scratch');
 
-if (Config.PROTOCOL === 'https') {
-  App.use(https);
-}
+// if (Config.PROTOCOL === 'https') {
+//   App.use(https);
+// }
 
 // App.use(async (req, res, next) => {
 //   const db = await r.connect({ host: "localhost" });
