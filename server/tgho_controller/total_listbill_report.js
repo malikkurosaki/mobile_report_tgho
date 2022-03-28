@@ -3,6 +3,7 @@ const moment = require("moment");
 const _ = require("lodash");
 const { PrismaClient } = require("@prisma/client");
 const { storage } = require("../storage");
+const { Tunggu } = require("../tunggu");
 const prisma = new PrismaClient();
 
 async function dataTotalListBillReport() {

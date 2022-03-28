@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const expressAsyncHandler = require('express-async-handler');
+const { Tunggu } = require('../tunggu');
 const prisma = new PrismaClient();
 
 const TgLogin = expressAsyncHandler(async (req, res) => {

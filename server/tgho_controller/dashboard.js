@@ -4,8 +4,10 @@ const prisma = new PrismaClient();
 // moment js
 const moment = require('moment');
 const fs = require('fs');
+const { Tunggu } = require('../tunggu');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const storage = new LocalStorage("./scratch");
+
 
 
 var Selection = {

@@ -7,5 +7,7 @@ const Tunggu = {
     productReportWeek: false,
     productReportToday: false,
     revenue: false
-    
+
 }
+
+module.exports = { Tunggu };

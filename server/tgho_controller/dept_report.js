@@ -3,6 +3,7 @@ const expressAsyncHandler = require("express-async-handler");
 const prisma = new PrismaClient();
 const moment = require("moment");
 const { storage } = require("../storage");
+const { Tunggu } = require("../tunggu");
 
 
 async function dept_report(req, res) {

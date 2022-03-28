@@ -4,7 +4,7 @@ const _ = require("lodash");
 const { PrismaClient } = require("@prisma/client");
 const { storage } = require("../storage");
 const prisma = new PrismaClient();
-
+const {Tunggu} = require("../tunggu");
 async function dataProductReportWeek() {
     /**@type [] */
     let resultWeek = [];

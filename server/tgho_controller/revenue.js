@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 // moment js
 const moment = require("moment");
 const { storage } = require("../storage");
+const { Tunggu } = require("../tunggu");
 
 async function dataRevenueReport() {
 

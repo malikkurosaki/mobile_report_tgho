@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 const moment = require("moment");
 const _ = require("lodash");
 const { storage } = require("../storage");
+const { Tunggu } = require("../tunggu");
 
 async function dataProductReportYear() {
     let resultYear = [];
