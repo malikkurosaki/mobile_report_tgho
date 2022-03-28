@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:mobile_report/tgho/tg_util_val.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'tg_util_pref.dart';
 
@@ -70,23 +69,23 @@ class TgPerformanceReport extends StatelessWidget {
                 )
               ],
             ),
-            ExpansionTile(
-              initiallyExpanded: true,
-              title: Text('Select Date'),
-              children: [
-                SfDateRangePicker(
-                  showActionButtons: true,
-                  allowViewNavigation: true,
-                  enableMultiView: true,
-                  toggleDaySelection: true,
-                  showNavigationArrow: true,
-                  showTodayButton: true,
-                  onSubmit: (p0) {},
-                  maxDate: DateTime.now(),
-                  selectionMode: DateRangePickerSelectionMode.extendableRange,
-                )
-              ],
-            ),
+            // ExpansionTile(
+            //   initiallyExpanded: true,
+            //   title: Text('Select Date'),
+            //   children: [
+            //     SfDateRangePicker(
+            //       showActionButtons: true,
+            //       allowViewNavigation: true,
+            //       enableMultiView: true,
+            //       toggleDaySelection: true,
+            //       showNavigationArrow: true,
+            //       showTodayButton: true,
+            //       onSubmit: (p0) {},
+            //       maxDate: DateTime.now(),
+            //       selectionMode: DateRangePickerSelectionMode.extendableRange,
+            //     )
+            //   ],
+            // ),
             Container(
               padding: EdgeInsets.all(8),
               margin: EdgeInsets.only(bottom: 32),

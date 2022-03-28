@@ -1,13 +1,8 @@
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:json_table/json_table.dart';
-import 'package:mobile_report/tgho/tg_util_pref.dart';
-import 'package:mobile_report/tgho/tg_util_load.dart';
-import 'package:mobile_report/tgho/tg_util_val.dart';
 import 'package:get/get.dart';
-import 'tg_conn.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:mobile_report/tgho/tg_util_pref.dart';
 
 class TgProductReport extends StatelessWidget {
   const TgProductReport({Key? key}) : super(key: key);

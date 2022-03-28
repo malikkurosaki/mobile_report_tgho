@@ -10,8 +10,25 @@ const fs = require('fs');
 const path = require('path');
 const { Config } = require('./config');
 const https = require('expressjs-force-https');
+const r = require('rethinkdb');
 // const { Config } = require('./tgho_controller/tg_config');
 
+async function connect() {
+  let db = await r.connect({ host: "localhost", port: 28015 });
+  r.dbList().run(db).then(async (dbs) => {
+    if (!dbs.includes('tgho')) {
+      await r.dbCreate('tgho').run(db);
+      console.log('Database tgho created');
+    }
+    await r.db('tgho').tableList().run(db).then(async (tables) => {
+      if (!tables.includes('dashboard')) {
+        await r.db('tgho').tableCreate('dashboard').run(db);
+        console.log('Table dashboard created');
+      }
+    });
+  })
+}
+connect();
 
 /**@type {{
   host: string,
@@ -24,6 +41,34 @@ const https = require('expressjs-force-https');
 if (Config.PROTOCOL === 'https') {
   App.use(https);
 }
+
+// App.use(async (req, res, next) => {
+//   const db = await r.connect({ host: "localhost" });
+//   r.dbList().run(db).then(async (dbs) => {
+//     if (!dbs.includes('tgho')) {
+//       await r.dbCreate('tgho').run(db);
+//       console.log('Database tgho created');
+//     }
+//     await r.db('tgho').tableList().run(db).then(async (tables) => {
+//       if (!tables.includes('dashboard')) {
+//         await r.db('tgho').tableCreate('dashboard').run(db);
+//         console.log('Table dashboard created');
+//       }
+//     });
+
+//   })
+//   req.db = db;
+//   // r.dbect().then(async (db) => {
+//   //   r.dbList().then(async (dbs) => {
+
+//   //   })
+//   //   req.db = db;
+//   //   next();
+//   // }).catch((err) => {
+//   //   console.log(err);
+//   // });
+
+// });
 
 App.use(cors());
 App.use(express.static(path.join(__dirname, './views')));
@@ -42,4 +87,4 @@ App.use((req, res, next) => res.status(500).send("500 | server error"))
 
 App.listen(Config.PORT, () => console.log(`${Config.PROTOCOL}://${Config.HOST}:${Config.PORT}`));
 
-module.exports = App
+module.exports = { App };

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_report/tgho/tg_router.dart';
+import 'package:mobile_report/tgho/tg_util_router.dart';
 import 'package:mobile_report/tgho/tg_util_pref.dart';
 
 class TgRoot extends StatelessWidget {
@@ -25,15 +25,15 @@ class TgRoot extends StatelessWidget {
     TgUtilPref.user();
 
     if(TgUtilPref.wellcomeX.value){
-      TgRouter.wellcome().goOff();
+      TgUtilRouter.wellcome().goOff();
       return;
     }
 
     if(TgUtilPref.userX.isEmpty){
-      TgRouter.login().goOff();
+      TgUtilRouter.login().goOff();
       return;
     }
 
-    TgRouter.dashboard().goOff();
+    TgUtilRouter.dashboard().goOff();
   }
 }

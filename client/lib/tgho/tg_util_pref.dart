@@ -55,6 +55,9 @@ class TgUtilPref {
   // user
   static final userX = {}.obs;
 
+  // introX
+  // static final introX = false.obs;
+
 
   // dasboard 
   TgUtilPref.dashboard({Map? value}) {
@@ -216,6 +219,16 @@ class TgUtilPref {
     wellcomeX.value = storage.read(key)??true;
   }
 
+  // intro
+  // TgUtilPref.intro({bool? value}) {
+  //   key = 'intro';
+  //   if (value != null) {
+  //     storage.write(key, value);
+  //     introX.value = value;
+  //   }
+  //   introX.value = storage.read(key)??true;
+  // }
+  
   get() {
     return storage.read(key);
   }

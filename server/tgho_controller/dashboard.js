@@ -3,6 +3,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 // moment js
 const moment = require('moment');
+const r = require('rethinkdb');
+
 
 var Selection = {
     /**@type {{
@@ -42,46 +44,20 @@ var Selection = {
             select: {
                 nama_out: true,
                 kode_out: true,
-
             }
         })
     },
 
 }
 
-
-// with query
-const Dashboard = asynchandler(async (req, res) => {
-
-    let { tgl1, tgl2, dept, out } = req.query
+async function dataDashboard(conn) {
+    // let { tgl1, tgl2, dept, out } = req.query
     await Selection.get();
-
-    let data = [];
-
-    console.log("comparation")
-    if (tgl2 == "null" && dept == "all" && out == "all") {
-        data = await AmbilDataSingle(tgl1);
-        console.log("single")
-    } else if (tgl2 == "null" && dept != "all" && out == "all") {
-        data = await AmbilDataSingleDept(tgl1, dept);
-        console.log("single dept")
-    } else if (tgl2 == "null" && dept == "all" && out != "all") {
-        data = await AmbilDataSingleOutlet(tgl1, out);
-        console.log("single outlet")
-    } else if (tgl2 != "null" && dept == "all" && out == "all") {
-        data = await AmbilDataAll(tgl1, tgl2);
-        console.log("all")
-    } else if (tgl2 != "null" && dept != "all" && out == "all") {
-        data = await AmbilDataDept(tgl1, tgl2, dept);
-        console.log("all dept")
-    } else if (tgl2 != "null" && dept == "all" && out != "all") {
-        data = await AmbilDataOutlet(tgl1, tgl2, out);
-        console.log("all outlet")
-    }
 
     let reportGroup = [];
     for (let i of Selection.group) {
         reportGroup.push(await ReportByGroup(i.nm_groupp))
+
     }
 
     let reportDept = [];
@@ -96,26 +72,47 @@ const Dashboard = asynchandler(async (req, res) => {
 
     let reportTotal = await ReportByTotal();
 
-    // send data
-    res.status(200).json({
-        success: Object.keys(data).length > 0,
-        data: {
-            "master": {
-                "group": Selection.group,
-                "dept": Selection.dept,
-                "out": Selection.outlet
-            },
-            // "data": data,
-            "report": {
-                "date": moment().format('YYYY-MM-DD'),
-                "byGroup": reportGroup,
-                "byTotal": reportTotal,
-                "byDept": reportDept,
-                "byOut": reportOut
-            }
+    let hasilData = {
+        "master": {
+            "group": Selection.group,
+            "dept": Selection.dept,
+            "out": Selection.outlet
+        },
+        // "data": data,
+        "report": {
+            "date": moment().format('YYYY-MM-DD'),
+            "byGroup": reportGroup,
+            "byTotal": reportTotal,
+            "byDept": reportDept,
+            "byOut": reportOut
         }
-    })
+    }
 
+    r.table('dashboard').delete().run(conn);
+    r.table('dashboard').insert(hasilData).run(conn);
+    console.log("load data dashboard")
+    return hasilData;
+}
+
+// with query
+const Dashboard = asynchandler(async (req, res) => {
+    let conn = await r.connect({ host: 'localhost', port: 28015, db: 'tgho' });
+    let dash = await (await r.table('dashboard').run(conn)).toArray();
+
+    if (dash.length > 0) {
+        
+        res.json({
+            success: true,
+            data: dash[0]
+        });
+        dataDashboard(conn);
+    } else {
+        let data = await dataDashboard(conn);
+        res.json({
+            success: true,
+            data: data
+        });
+    }
 })
 
 // first month this year
@@ -136,8 +133,6 @@ let firstToday = moment().startOf('day').format('YYYY-MM-DD');
 let lastToday = moment().endOf('day').format('YYYY-MM-DD');
 
 async function ReportByTotal() {
-
-
     // year report
     let year = await prisma.listbill.aggregate({
         _sum: {
@@ -757,228 +752,228 @@ async function ReportByOut(out) {
     return report;
 }
 
-const AmbilDataSingle = async (tgl1) => {
+// const AmbilDataSingle = async (tgl1) => {
 
-    let group = {};
-    for (let i of Selection.group) {
-        let data = await prisma.listbill.aggregate({
-            _sum: {
-                total: true,
-                gtotal: true,
-                net: true,
-                taxrp: true,
-            },
-            where: {
-                bill: {
-                    every: {
-                        Produk: {
-                            groupp: {
-                                equals: i.nm_groupp
-                            }
-                        }
-                    }
-                },
-                tanggal: {
-                    gte: new Date(tgl1),
-                    lte: new Date(tgl1)
-                }
-            }
-        })
+//     let group = {};
+//     for (let i of Selection.group) {
+//         let data = await prisma.listbill.aggregate({
+//             _sum: {
+//                 total: true,
+//                 gtotal: true,
+//                 net: true,
+//                 taxrp: true,
+//             },
+//             where: {
+//                 bill: {
+//                     every: {
+//                         Produk: {
+//                             groupp: {
+//                                 equals: i.nm_groupp
+//                             }
+//                         }
+//                     }
+//                 },
+//                 tanggal: {
+//                     gte: new Date(tgl1),
+//                     lte: new Date(tgl1)
+//                 }
+//             }
+//         })
 
-        group[i.nm_groupp] = data;
+//         group[i.nm_groupp] = data;
 
-    }
+//     }
 
-    return group;
-}
+//     return group;
+// }
 
-const AmbilDataSingleDept = async (tgl1, dept) => {
+// const AmbilDataSingleDept = async (tgl1, dept) => {
 
-    let group = {};
-    for (let i of Selection.group) {
-        let data = await prisma.listbill.aggregate({
-            _sum: {
-                total: true,
-                gtotal: true,
-                net: true,
-                taxrp: true,
-            },
-            where: {
-                bill: {
-                    every: {
-                        Produk: {
-                            groupp: {
-                                equals: i.nm_groupp
-                            }
-                        },
-                    }
-                },
-                cdept: {
-                    equals: dept
-                },
-                tanggal: {
-                    gte: new Date(tgl1),
-                    lte: new Date(tgl1)
-                }
-            }
-        })
+//     let group = {};
+//     for (let i of Selection.group) {
+//         let data = await prisma.listbill.aggregate({
+//             _sum: {
+//                 total: true,
+//                 gtotal: true,
+//                 net: true,
+//                 taxrp: true,
+//             },
+//             where: {
+//                 bill: {
+//                     every: {
+//                         Produk: {
+//                             groupp: {
+//                                 equals: i.nm_groupp
+//                             }
+//                         },
+//                     }
+//                 },
+//                 cdept: {
+//                     equals: dept
+//                 },
+//                 tanggal: {
+//                     gte: new Date(tgl1),
+//                     lte: new Date(tgl1)
+//                 }
+//             }
+//         })
 
-        group[i.nm_groupp] = data;
+//         group[i.nm_groupp] = data;
 
-    }
+//     }
 
-    return group;
-}
+//     return group;
+// }
 
-const AmbilDataSingleOutlet = async (tgl1, outlet) => {
+// const AmbilDataSingleOutlet = async (tgl1, outlet) => {
 
-    let group = {};
-    for (let i of Selection.group) {
-        let data = await prisma.listbill.aggregate({
-            _sum: {
-                total: true,
-                gtotal: true,
-                net: true,
-                taxrp: true,
-            },
-            where: {
-                bill: {
-                    every: {
-                        Produk: {
-                            groupp: {
-                                equals: i.nm_groupp
-                            }
-                        },
-                    }
-                },
-                kode_out: {
-                    equals: outlet
-                },
-                tanggal: {
-                    gte: new Date(tgl1),
-                    lte: new Date(tgl1)
-                }
-            }
-        })
+//     let group = {};
+//     for (let i of Selection.group) {
+//         let data = await prisma.listbill.aggregate({
+//             _sum: {
+//                 total: true,
+//                 gtotal: true,
+//                 net: true,
+//                 taxrp: true,
+//             },
+//             where: {
+//                 bill: {
+//                     every: {
+//                         Produk: {
+//                             groupp: {
+//                                 equals: i.nm_groupp
+//                             }
+//                         },
+//                     }
+//                 },
+//                 kode_out: {
+//                     equals: outlet
+//                 },
+//                 tanggal: {
+//                     gte: new Date(tgl1),
+//                     lte: new Date(tgl1)
+//                 }
+//             }
+//         })
 
-        group[i.nm_groupp] = data;
+//         group[i.nm_groupp] = data;
 
-    }
+//     }
 
-    return group;
-}
+//     return group;
+// }
 
-const AmbilDataAll = async (tgl1, tgl2) => {
+// const AmbilDataAll = async (tgl1, tgl2) => {
 
-    let group = {};
-    for (let i of Selection.group) {
-        let data = await prisma.listbill.aggregate({
-            _sum: {
-                total: true,
-                gtotal: true,
-                net: true,
-                taxrp: true,
-            },
-            where: {
-                bill: {
-                    every: {
-                        Produk: {
-                            groupp: {
-                                equals: i.nm_groupp
-                            }
-                        }
-                    }
-                },
-                tanggal: {
-                    gte: new Date(tgl1),
-                    lte: new Date(tgl2)
-                }
-            }
-        })
+//     let group = {};
+//     for (let i of Selection.group) {
+//         let data = await prisma.listbill.aggregate({
+//             _sum: {
+//                 total: true,
+//                 gtotal: true,
+//                 net: true,
+//                 taxrp: true,
+//             },
+//             where: {
+//                 bill: {
+//                     every: {
+//                         Produk: {
+//                             groupp: {
+//                                 equals: i.nm_groupp
+//                             }
+//                         }
+//                     }
+//                 },
+//                 tanggal: {
+//                     gte: new Date(tgl1),
+//                     lte: new Date(tgl2)
+//                 }
+//             }
+//         })
 
-        group[i.nm_groupp] = data;
+//         group[i.nm_groupp] = data;
 
-    }
+//     }
 
-    return group;
-}
+//     return group;
+// }
 
-const AmbilDataDept = async (tgl1, tgl2, dept) => {
+// const AmbilDataDept = async (tgl1, tgl2, dept) => {
 
-    let group = {};
-    for (let i of Selection.group) {
-        let data = await prisma.listbill.aggregate({
-            _sum: {
-                total: true,
-                gtotal: true,
-                net: true,
-                taxrp: true,
-            },
-            where: {
-                bill: {
-                    every: {
-                        Produk: {
-                            groupp: {
-                                equals: i.nm_groupp
-                            }
-                        },
-                    }
-                },
-                cdept: {
-                    equals: dept
-                },
-                tanggal: {
-                    gte: new Date(tgl1),
-                    lte: new Date(tgl2)
-                }
-            }
-        })
+//     let group = {};
+//     for (let i of Selection.group) {
+//         let data = await prisma.listbill.aggregate({
+//             _sum: {
+//                 total: true,
+//                 gtotal: true,
+//                 net: true,
+//                 taxrp: true,
+//             },
+//             where: {
+//                 bill: {
+//                     every: {
+//                         Produk: {
+//                             groupp: {
+//                                 equals: i.nm_groupp
+//                             }
+//                         },
+//                     }
+//                 },
+//                 cdept: {
+//                     equals: dept
+//                 },
+//                 tanggal: {
+//                     gte: new Date(tgl1),
+//                     lte: new Date(tgl2)
+//                 }
+//             }
+//         })
 
-        group[i.nm_groupp] = data;
+//         group[i.nm_groupp] = data;
 
-    }
+//     }
 
-    return group;
-}
+//     return group;
+// }
 
-const AmbilDataOutlet = async (tgl1, tgl2, outlet) => {
+// const AmbilDataOutlet = async (tgl1, tgl2, outlet) => {
 
-    let group = {};
-    for (let i of Selection.group) {
-        let data = await prisma.listbill.aggregate({
-            _sum: {
-                total: true,
-                gtotal: true,
-                net: true,
-                taxrp: true,
-            },
-            where: {
-                bill: {
-                    every: {
-                        Produk: {
-                            groupp: {
-                                equals: i.nm_groupp
-                            }
-                        },
-                    }
-                },
-                kode_out: {
-                    equals: outlet
-                },
-                tanggal: {
-                    gte: new Date(tgl1),
-                    lte: new Date(tgl2)
-                }
-            }
-        })
+//     let group = {};
+//     for (let i of Selection.group) {
+//         let data = await prisma.listbill.aggregate({
+//             _sum: {
+//                 total: true,
+//                 gtotal: true,
+//                 net: true,
+//                 taxrp: true,
+//             },
+//             where: {
+//                 bill: {
+//                     every: {
+//                         Produk: {
+//                             groupp: {
+//                                 equals: i.nm_groupp
+//                             }
+//                         },
+//                     }
+//                 },
+//                 kode_out: {
+//                     equals: outlet
+//                 },
+//                 tanggal: {
+//                     gte: new Date(tgl1),
+//                     lte: new Date(tgl2)
+//                 }
+//             }
+//         })
 
-        group[i.nm_groupp] = data;
+//         group[i.nm_groupp] = data;
 
-    }
+//     }
 
-    return group;
-}
+//     return group;
+// }
 
 
 
-module.exports = { Dashboard }
+module.exports = { Dashboard, }

@@ -152,7 +152,7 @@ class TgSubProductYear extends StatelessWidget {
                         ),
                       ),
                     ),
-                    TgUtilPref.productMonthReportX.isEmpty || TgUtilPref.prowductWeekReportX.isEmpty || TgUtilPref.productDayReportX.isEmpty
+                    TgUtilPref.productMonthReportX.isEmpty
                         ? Center(
                             child: Text("load data ..."),
                           )
@@ -206,7 +206,9 @@ class TgSubProductYear extends StatelessWidget {
                                   ],
                                 ),
                                 Flexible(
-                                  child: Card(
+                                  child: 
+                                  TgUtilPref.prowductWeekReportX.isEmpty || TgUtilPref.productDayReportX.isEmpty
+                                      ? Text("No data ..") : Card(
                                     child: Stack(
                                       children: [
                                         Image.network(

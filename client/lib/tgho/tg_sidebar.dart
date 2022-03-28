@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:mobile_report/tgho/tg_util_pref.dart';
-import 'package:mobile_report/tgho/tg_router.dart';
+import 'package:mobile_report/tgho/tg_util_router.dart';
 import 'package:get/get.dart';
 
 class TgSidebar extends StatelessWidget {
@@ -129,7 +129,7 @@ class TgSidebar extends StatelessWidget {
                       onPressed: () {
                         TgUtilPref.user(value: {});
                         TgUtilPref.wellcome(value: true);
-                        TgRouter.root().goOff();
+                        TgUtilRouter.root().goOff();
                       },
                     ),
                     MaterialButton(

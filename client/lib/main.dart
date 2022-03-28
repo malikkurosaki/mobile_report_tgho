@@ -1,21 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:mobile_report/Val.dart';
-import 'package:mobile_report/models.dart';
-import 'package:mobile_report/tgho/tg_router.dart';
 import 'package:mobile_report/tgho/tg_util_load.dart';
-import 'package:mobile_report/v2_router.dart';
-import 'package:mobile_report/splash.dart';
-import 'package:mobile_report/v2_models.dart';
-import 'package:mobile_report/v2_pref.dart';
-import 'package:mobile_report/v2_splash.dart';
-import 'package:mobile_report/v2_val.dart';
+import 'package:mobile_report/tgho/tg_util_router.dart';
 
 void main() async {
   await GetStorage.init();
@@ -38,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mobile Report',
       initialRoute: '/',
-      getPages: TgRouter.pages,
+      getPages: TgUtilRouter.pages,
       builder: EasyLoading.init(),
     );
   }

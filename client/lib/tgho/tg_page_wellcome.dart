@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_report/tgho/tg_router.dart';
+import 'package:mobile_report/tgho/tg_util_router.dart';
 import 'package:mobile_report/tgho/tg_util_pref.dart';
 
 final wellcomes = [
@@ -114,7 +114,7 @@ class TgPageWellcome extends StatelessWidget {
                                           ),
                                           onPressed: () {
                                             TgUtilPref.wellcome(value: false);
-                                            TgRouter.root().goOff();
+                                            TgUtilRouter.root().goOff();
                                           }),
                                     ))
                               ],
