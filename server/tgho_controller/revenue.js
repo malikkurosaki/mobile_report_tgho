@@ -55,7 +55,11 @@ const Revenue = expressAsyncHandler(async(req, res) => {
             success: true,
             data: JSON.parse(data)
         })
-        dataRevenueReport();
+        if(!Tunggu.revenue){
+            Tunggu.revenue = true;
+            dataRevenueReport();
+            Tunggu.revenue = false;
+        }
     }
 
 

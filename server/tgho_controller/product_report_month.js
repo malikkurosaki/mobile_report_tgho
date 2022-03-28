@@ -84,7 +84,11 @@ const ProductReportMonth = expressAsyncHandler(async (req, res) => {
             success: true,
             data: JSON.parse(month)
         })
-        dataProductReportMonth();
+        if(!Tunggu.productReportMonth){
+            Tunggu.productReportMonth = true;
+            dataProductReportMonth();
+            Tunggu.productReportMonth = false;
+        }
     }
 
 })

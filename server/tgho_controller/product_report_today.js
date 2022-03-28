@@ -88,7 +88,11 @@ const ProductReportToday = expressAsyncHandler(async (req, res) => {
             success: true,
             data: JSON.parse(data)
         })
-        dataProductReportToday();
+        if(!Tunggu.productReportToday){
+            Tunggu.productReportToday = true;
+            dataProductReportToday();
+            Tunggu.productReportToday = false;
+        }
     }
 })
 

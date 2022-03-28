@@ -131,7 +131,11 @@ const ByDeptReport = expressAsyncHandler(async (req, res) => {
             data: JSON.parse(dep)
         });
         
-        dept_report();
+        if(!Tunggu.deptReport){
+            Tunggu.deptReport = true;
+            dept_report();
+            Tunggu.deptReport = false;
+        }
     }
     
 });

@@ -122,7 +122,11 @@ const YearReport = expressAsyncHandler(async (req, res) => {
             success: true,
             data: JSON.parse(data)
         });
-        dataYearReport();
+        if(!Tunggu.yearReport){
+            Tunggu.yearReport = true;
+            dataYearReport();
+            Tunggu.yearReport = false;
+        }
     }
 
 })

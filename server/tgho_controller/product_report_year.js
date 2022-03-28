@@ -80,12 +80,16 @@ const ProductReportYear = expressAsyncHandler(async (req, res) => {
             success: true,
             data: data
         })
-    }else{
+    } else {
         res.json({
             success: true,
             data: JSON.parse(data)
         })
-        dataProductReportYear();
+        if (!Tunggu.productReportYear) {
+            Tunggu.productReportYear = true;
+            dataProductReportYear();
+            Tunggu.productReportYear = false;
+        }
     }
 
 

@@ -85,7 +85,11 @@ const ProductreportWeek = expressAsyncHandler(async (req, res) => {
             "success": true,
             "data": JSON.parse(data)
         })
-        dataProductReportWeek();
+        if(!Tunggu.productReportWeek){
+            Tunggu.productReportWeek = true;
+            dataProductReportWeek();
+            Tunggu.productReportWeek = false;
+        }
     }
 
 })

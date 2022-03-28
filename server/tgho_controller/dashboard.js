@@ -53,7 +53,7 @@ var Selection = {
 }
 
 async function dataDashboard() {
-    
+
     // let { tgl1, tgl2, dept, out } = req.query
     await Selection.get();
 
@@ -99,19 +99,24 @@ async function dataDashboard() {
 
 // with query
 const Dashboard = asynchandler(async (req, res) => {
-    let dashboard = storage.getItem('dashboard');
-    if(dashboard == null){
-        dashboard = await dataDashboard();
+    let data = storage.getItem('dashboard');
+    if (data == null) {
+        let dashboard = await dataDashboard();
         res.json({
             success: true,
             data: dashboard
         });
-    }else{
+    } else {
         res.json({
             success: true,
-            data: JSON.parse(dashboard)
+            data: JSON.parse(data)
         });
-        dataDashboard();
+
+        if (!Tunggu.dashboard) {
+            Tunggu.dashboard = true;
+            dataDashboard();
+            Tunggu.dashboard = false;
+        }
     }
 })
 
