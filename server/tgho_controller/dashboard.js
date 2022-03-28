@@ -6,7 +6,6 @@ const moment = require('moment');
 const fs = require('fs');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const storage = new LocalStorage("./scratch");
-// const r = require('rethinkdb');
 
 
 var Selection = {
