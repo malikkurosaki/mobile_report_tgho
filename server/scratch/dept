@@ -1,0 +1,230 @@
+[
+  {
+    "dept": "TAURUS GEMILANG DPS",
+    "year": {
+      "first": "2022-01-01",
+      "last": "2022-12-31",
+      "data": {
+        "_avg": {
+          "total": "254500",
+          "net": "0"
+        },
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000"
+        }
+      }
+    },
+    "month": {
+      "first": "2022-03-01",
+      "last": "2022-03-31",
+      "data": {
+        "_avg": {
+          "total": "0",
+          "net": "0"
+        }
+      }
+    },
+    "week": {
+      "first": "2022-03-27",
+      "last": "2022-04-02",
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null
+        }
+      }
+    }
+  },
+  {
+    "dept": "BOLU JADUL BALI",
+    "year": {
+      "first": "2022-01-01",
+      "last": "2022-12-31",
+      "data": {
+        "_avg": {
+          "total": "254500",
+          "net": "0"
+        },
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000"
+        }
+      }
+    },
+    "month": {
+      "first": "2022-03-01",
+      "last": "2022-03-31",
+      "data": {
+        "_avg": {
+          "total": "0",
+          "net": "0"
+        }
+      }
+    },
+    "week": {
+      "first": "2022-03-27",
+      "last": "2022-04-02",
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null
+        }
+      }
+    }
+  },
+  {
+    "dept": "SOTOKU",
+    "year": {
+      "first": "2022-01-01",
+      "last": "2022-12-31",
+      "data": {
+        "_avg": {
+          "total": "254500",
+          "net": "0"
+        },
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000"
+        }
+      }
+    },
+    "month": {
+      "first": "2022-03-01",
+      "last": "2022-03-31",
+      "data": {
+        "_avg": {
+          "total": "0",
+          "net": "0"
+        }
+      }
+    },
+    "week": {
+      "first": "2022-03-27",
+      "last": "2022-04-02",
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null
+        }
+      }
+    }
+  },
+  {
+    "dept": "WARUNG MADE DOMES",
+    "year": {
+      "first": "2022-01-01",
+      "last": "2022-12-31",
+      "data": {
+        "_avg": {
+          "total": "254500",
+          "net": "0"
+        },
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000"
+        }
+      }
+    },
+    "month": {
+      "first": "2022-03-01",
+      "last": "2022-03-31",
+      "data": {
+        "_avg": {
+          "total": "0",
+          "net": "0"
+        }
+      }
+    },
+    "week": {
+      "first": "2022-03-27",
+      "last": "2022-04-02",
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null
+        }
+      }
+    }
+  },
+  {
+    "dept": "WARUNG KOFFIE BATAVIA",
+    "year": {
+      "first": "2022-01-01",
+      "last": "2022-12-31",
+      "data": {
+        "_avg": {
+          "total": "254500",
+          "net": "0"
+        },
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000"
+        }
+      }
+    },
+    "month": {
+      "first": "2022-03-01",
+      "last": "2022-03-31",
+      "data": {
+        "_avg": {
+          "total": "0",
+          "net": "0"
+        }
+      }
+    },
+    "week": {
+      "first": "2022-03-27",
+      "last": "2022-04-02",
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null
+        }
+      }
+    }
+  },
+  {
+    "dept": "TAURUS GEMILANG HO",
+    "year": {
+      "first": "2022-01-01",
+      "last": "2022-12-31",
+      "data": {
+        "_avg": {
+          "total": "254500",
+          "net": "0"
+        },
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000"
+        }
+      }
+    },
+    "month": {
+      "first": "2022-03-01",
+      "last": "2022-03-31",
+      "data": {
+        "_avg": {
+          "total": "0",
+          "net": "0"
+        }
+      }
+    },
+    "week": {
+      "first": "2022-03-27",
+      "last": "2022-04-02",
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null
+        }
+      }
+    }
+  }
+]

@@ -3,7 +3,10 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 // moment js
 const moment = require('moment');
-const r = require('rethinkdb');
+const fs = require('fs');
+const LocalStorage = require('node-localstorage').LocalStorage;
+const storage = new LocalStorage("./scratch");
+// const r = require('rethinkdb');
 
 
 var Selection = {
@@ -50,7 +53,8 @@ var Selection = {
 
 }
 
-async function dataDashboard(conn) {
+async function dataDashboard() {
+    
     // let { tgl1, tgl2, dept, out } = req.query
     await Selection.get();
 
@@ -88,30 +92,27 @@ async function dataDashboard(conn) {
         }
     }
 
-    r.table('dashboard').delete().run(conn);
-    r.table('dashboard').insert(hasilData).run(conn);
-    console.log("load data dashboard")
+    storage.setItem('dashboard', JSON.stringify(hasilData, null, 2));
+    console.log("data dashboard berhasil di simpan");
     return hasilData;
+
 }
 
 // with query
 const Dashboard = asynchandler(async (req, res) => {
-    let conn = await r.connect({ host: 'localhost', port: 28015, db: 'tgho' });
-    let dash = await (await r.table('dashboard').run(conn)).toArray();
-
-    if (dash.length > 0) {
-        
+    let dashboard = storage.getItem('dashboard');
+    if(dashboard == null){
+        dashboard = await dataDashboard();
         res.json({
             success: true,
-            data: dash[0]
+            data: dashboard
         });
-        dataDashboard(conn);
-    } else {
-        let data = await dataDashboard(conn);
+    }else{
         res.json({
             success: true,
-            data: data
+            data: JSON.parse(dashboard)
         });
+        dataDashboard();
     }
 })
 

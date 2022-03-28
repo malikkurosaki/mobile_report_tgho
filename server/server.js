@@ -10,33 +10,8 @@ const fs = require('fs');
 const path = require('path');
 const { Config } = require('./config');
 const https = require('expressjs-force-https');
-const r = require('rethinkdb');
-// const { Config } = require('./tgho_controller/tg_config');
-
-async function connect() {
-  let db = await r.connect({ host: "localhost", port: 28015 });
-  r.dbList().run(db).then(async (dbs) => {
-    if (!dbs.includes('tgho')) {
-      await r.dbCreate('tgho').run(db);
-      console.log('Database tgho created');
-    }
-    await r.db('tgho').tableList().run(db).then(async (tables) => {
-      if (!tables.includes('dashboard')) {
-        await r.db('tgho').tableCreate('dashboard').run(db);
-        console.log('Table dashboard created');
-      }
-    });
-  })
-}
-connect();
-
-/**@type {{
-  host: string,
-  port: string,
-  path: string,
-  protocol: string
-}} */
-// const config = JSON.parse(fs.readFileSync('config.json'));
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./scratch');
 
 if (Config.PROTOCOL === 'https') {
   App.use(https);

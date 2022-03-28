@@ -2,8 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const expressAsyncHandler = require("express-async-handler");
 const prisma = new PrismaClient();
 const moment = require("moment");
+const { storage } = require("../storage");
 
-const ByDeptReport = expressAsyncHandler(async (req, res) => {
+
+async function dept_report(req, res) {
     let dept = await prisma.acc_dept.findMany();
 
     let result = [];
@@ -102,16 +104,36 @@ const ByDeptReport = expressAsyncHandler(async (req, res) => {
         });
     }
 
-    res.json({
-        success: result.length > 0,
-        data: {
-            "year": {
-                "first": moment().startOf("year").format("YYYY-MM-DD"),
-                "last": moment().endOf("year").format("YYYY-MM-DD")
-            },
-            "data": result
-        }
-    });
+    storage.setItem("dept", JSON.stringify(result, null, 2));
+    console.log("dept report saved");
+    return {
+        "year": {
+            "first": moment().startOf("year").format("YYYY-MM-DD"),
+            "last": moment().endOf("year").format("YYYY-MM-DD")
+        },
+        "data": result
+    }
+
+}
+
+const ByDeptReport = expressAsyncHandler(async (req, res) => {
+    let dep = storage.getItem("dept");
+
+    if (dep == null) {
+        let result = await dept_report();
+        res.json({
+            success: true,
+            data: result
+        });
+    } else {
+        res.json({
+            success: true,
+            data: JSON.parse(dep)
+        });
+        
+        dept_report();
+    }
+    
 });
 
 module.exports = { ByDeptReport }

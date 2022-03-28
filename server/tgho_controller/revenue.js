@@ -3,11 +3,12 @@ const expressAsyncHandler = require("express-async-handler");
 const prisma = new PrismaClient();
 // moment js
 const moment = require("moment");
+const { storage } = require("../storage");
 
-const Revenue = expressAsyncHandler(async(req, res) => {
+async function dataRevenueReport() {
 
     // generate list month number
-    const listMonth = [1,2,3,4,5,6,7,8,9,10,11,12];
+    const listMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     // this month
     const thisMonth = moment().format("MM");
 
@@ -37,11 +38,26 @@ const Revenue = expressAsyncHandler(async(req, res) => {
         });
     }
 
+    storage.setItem("revenue", JSON.stringify(hasil, null, 2));
+    console.log("revenue report saved");
+    return hasil;
+}
 
-    res.json({
-        success: hasil.length > 0,
-        data: hasil
-    });
+const Revenue = expressAsyncHandler(async(req, res) => {
+    let data = storage.getItem("revenue");  
+    if(data == null){
+        res.json({
+            success: true,
+            data: await dataRevenueReport()
+        })
+    }else{
+        res.json({
+            success: true,
+            data: JSON.parse(data)
+        })
+        dataRevenueReport();
+    }
+
 
 });
 

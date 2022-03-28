@@ -2,9 +2,10 @@ const expressAsyncHandler = require("express-async-handler");
 const moment = require("moment");
 const _ = require("lodash");
 const { PrismaClient } = require("@prisma/client");
+const { storage } = require("../storage");
 const prisma = new PrismaClient();
 
-const ProductReportToday = expressAsyncHandler(async (req, res) => {
+async function dataProductReportToday() {
 
     /**@type [] */
     let resultToday = [];
@@ -60,16 +61,35 @@ const ProductReportToday = expressAsyncHandler(async (req, res) => {
         resultToday.push(data)
     }
 
-    res.json({
-        "success": resultToday.length > 0,
-        "data": {
-            "date": {
-                "start": moment().startOf("day").format("YYYY-MM-DD"),
-                "end": moment().endOf("day").format("YYYY-MM-DD")
-            },
-            "data": resultToday
-        }
-    })
+    let hasil = {
+        "date": {
+            "start": moment().startOf("day").format("YYYY-MM-DD"),
+            "end": moment().endOf("day").format("YYYY-MM-DD")
+        },
+        "data": resultToday
+    }
+
+    storage.setItem("productReportToday", JSON.stringify(hasil));
+    console.log("productReportToday saved");
+    return hasil;
+    
+}
+
+const ProductReportToday = expressAsyncHandler(async (req, res) => {
+    const data = storage.getItem("productReportToday");
+    if(data == null){
+        let hasil = await dataProductReportToday();
+        res.json({
+            success: true,
+            data: hasil
+        })
+    }else{
+        res.json({
+            success: true,
+            data: JSON.parse(data)
+        })
+        dataProductReportToday();
+    }
 })
 
 module.exports = { ProductReportToday }

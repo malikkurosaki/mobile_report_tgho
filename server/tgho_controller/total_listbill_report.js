@@ -2,10 +2,10 @@ const expressAsyncHandler = require("express-async-handler");
 const moment = require("moment");
 const _ = require("lodash");
 const { PrismaClient } = require("@prisma/client");
+const { storage } = require("../storage");
 const prisma = new PrismaClient();
 
-
-const TotalListBillreport = expressAsyncHandler(async (req, res) => {
+async function dataTotalListBillReport() {
     let year = await prisma.listbill.count({
         where: {
             tanggal: {
@@ -77,10 +77,25 @@ const TotalListBillreport = expressAsyncHandler(async (req, res) => {
         }
     }
 
-    res.json({
-        success: true,
-        data: data
-    })
+    storage.setItem("totalListBillReport", JSON.stringify(data, null, 2));
+    console.log("totalListBillReport saved");
+    return data;
+}
+const TotalListBillreport = expressAsyncHandler(async (req, res) => {
+   let data = storage.getItem("totalListBillReport");
+    if (data == null) {
+        res.json({
+            success: true,
+            data: await dataTotalListBillReport()
+        })
+    } else {
+        res.json({
+            success: true,
+            data: JSON.parse(data)
+
+        });
+        dataTotalListBillReport();
+    }
 })
 
 module.exports = { TotalListBillreport }

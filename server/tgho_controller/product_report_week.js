@@ -2,12 +2,13 @@ const expressAsyncHandler = require("express-async-handler");
 const moment = require("moment");
 const _ = require("lodash");
 const { PrismaClient } = require("@prisma/client");
+const { storage } = require("../storage");
 const prisma = new PrismaClient();
 
-const ProductreportWeek = expressAsyncHandler(async (req, res) => {
+async function dataProductReportWeek() {
     /**@type [] */
     let resultWeek = [];
-    
+
     let topProductWeek = await prisma.produk.findMany({
         select: {
             nama_pro: true,
@@ -58,17 +59,35 @@ const ProductreportWeek = expressAsyncHandler(async (req, res) => {
         resultWeek.push(data)
     }
 
+    let hasil = {
+        "date": {
+            "start": moment().startOf("week").format("YYYY-MM-DD"),
+            "end": moment().endOf("week").format("YYYY-MM-DD")
+        },
+        "data": resultWeek
+    }
+    storage.setItem("productReportWeek", JSON.stringify(hasil, null, 2));
+    console.log("productReportWeek saved");
+    return hasil;
 
-    res.json({
-        "success": resultWeek.length > 0,
-        "data": {
-            "date": {
-                "start": moment().startOf("week").format("YYYY-MM-DD"),
-                "end": moment().endOf("week").format("YYYY-MM-DD")
-            },
-            "data": resultWeek
-        }
-    })
+}
+
+const ProductreportWeek = expressAsyncHandler(async (req, res) => {
+    let data = storage.getItem("productReportWeek");
+    if (data == null) {
+        let result = await dataProductReportWeek();
+        res.json({
+            "success": true,
+            "data": result
+        })
+    } else {
+        res.json({
+            "success": true,
+            "data": JSON.parse(data)
+        })
+        dataProductReportWeek();
+    }
+
 })
 
 module.exports = { ProductreportWeek }

@@ -23,3 +23,8 @@
 2022-03-28T12:38:35.949686000 4067.362253s info: Table 7142a909-401f-4b9c-946c-60f11e90ddf4: Starting a new Raft election for term 1.
 2022-03-28T12:38:35.949809000 4067.362375s info: Table 7142a909-401f-4b9c-946c-60f11e90ddf4: Added replica on this server.
 2022-03-28T12:38:35.976575000 4067.389143s info: Table 7142a909-401f-4b9c-946c-60f11e90ddf4: This server is Raft leader for term 1. Latest log index is 0.
+2022-03-28T14:17:48.974858000 10020.576079s notice: Server got SIGINT from pid 1185, uid 501; shutting down...
+2022-03-28T14:17:48.975667000 10020.576888s notice: Shutting down client connections...
+2022-03-28T14:17:48.976352000 10020.577573s notice: All client connections closed.
+2022-03-28T14:17:48.976406000 10020.577626s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2022-03-28T14:17:48.991124000 10020.592346s notice: Storage engine shut down.

@@ -2,6 +2,7 @@ const { PrismaClient, Prisma } = require("@prisma/client");
 const expressAsyncHandler = require("express-async-handler");
 const prisma = new PrismaClient();
 const moment = require("moment");
+const { storage } = require("../storage");
 
 const map = {
     total: true,
@@ -20,7 +21,7 @@ const map = {
 //     _count: map
 // }
 
-const YearReport = expressAsyncHandler(async (req, res) => {
+async function dataYearReport(){
     let year = await prisma.listbill.aggregate({
         _avg: map,
         _count: map,
@@ -79,33 +80,50 @@ const YearReport = expressAsyncHandler(async (req, res) => {
         }
     })
 
-
-
-    res.json({
-        success: true,
-        data: {
-            "year": {
-                "first": moment().startOf('year').format("YYYY-MM-DD"),
-                "last": moment().endOf('year').format("YYYY-MM-DD"),
-                "data": year
-            },
-            "month": {
-                "first": moment().startOf('month').format("YYYY-MM-DD"),
-                "last": moment().endOf('month').format("YYYY-MM-DD"),
-                "data": month
-            },
-            "week": {
-                "first": moment().startOf('week').format("YYYY-MM-DD"),
-                "last": moment().endOf('week').format("YYYY-MM-DD"),
-                "data": week
-            },
-            "day": {
-                "first": moment().startOf('day').format("YYYY-MM-DD"),
-                "last": moment().endOf('day').format("YYYY-MM-DD"),
-                "data": day
-            }
+    let data = {
+        "year": {
+            "first": moment().startOf('year').format("YYYY-MM-DD"),
+            "last": moment().endOf('year').format("YYYY-MM-DD"),
+            "data": year
+        },
+        "month": {
+            "first": moment().startOf('month').format("YYYY-MM-DD"),
+            "last": moment().endOf('month').format("YYYY-MM-DD"),
+            "data": month
+        },
+        "week": {
+            "first": moment().startOf('week').format("YYYY-MM-DD"),
+            "last": moment().endOf('week').format("YYYY-MM-DD"),
+            "data": week
+        },
+        "day": {
+            "first": moment().startOf('day').format("YYYY-MM-DD"),
+            "last": moment().endOf('day').format("YYYY-MM-DD"),
+            "data": day
         }
-    })
+    }
+
+    storage.setItem("year_report", JSON.stringify(data, null, 2));
+    console.log("year_report saved");
+    return data;
+}
+
+const YearReport = expressAsyncHandler(async (req, res) => {
+    let data = storage.getItem("year_report");
+    if (data == null) {
+        let hasil = await dataYearReport();
+        res.json({
+            success: true,
+            data: hasil
+        })
+    }
+    else {
+        res.json({
+            success: true,
+            data: JSON.parse(data)
+        });
+        dataYearReport();
+    }
 
 })
 

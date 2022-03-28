@@ -7,7 +7,7 @@ const { ProductreportWeek } = require('./tgho_controller/product_report_week');
 const { ProductReportYear } = require('./tgho_controller/product_report_year');
 
 const { YearReport } = require('./tgho_controller/year_report');
-const {Revenue} = require('./tgho_controller/revelue');
+const {Revenue} = require('./tgho_controller/revenue');
 const { TgLogin } = require('./tgho_controller/tg_login');
 const ApiV2 = express.Router();
 const r = require('rethinkdb');
