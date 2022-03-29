@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 const TgLogin = expressAsyncHandler(async (req, res) => {
     let {name, password} = req.body;
     let login = await prisma.auth.findFirst({
+    
         where: {
             name: {
                 equals: name

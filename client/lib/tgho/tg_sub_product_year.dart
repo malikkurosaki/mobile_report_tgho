@@ -1,8 +1,9 @@
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
-
+import 'package:get/get.dart';
 import 'tg_util_pref.dart';
 
 class TgSubProductYear extends StatelessWidget {
@@ -10,6 +11,7 @@ class TgSubProductYear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // onLoad();
     return Obx(
       () => TgUtilPref.productYearReportX.isEmpty
           ? Text("loading ...")
@@ -26,7 +28,7 @@ class TgSubProductYear extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 500,
-                      height: 700,
+                      height: 900,
                       child: Card(
                         child: Stack(
                           children: [
@@ -41,48 +43,57 @@ class TgSubProductYear extends StatelessWidget {
                             Container(
                               color: Colors.white.withOpacity(0.8),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(32),
-                              child: Column(
-                                children: [
-                                  Row(
+                            Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  color: Colors.white.withOpacity(0.8),
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: Text(
                                           DateFormat("dd MMMM yyyy").format(
-                                              DateTime.parse(TgUtilPref.productYearReportX['date']['start'].toString())),
-                                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          DateFormat("dd MMMM yyyy").format(
+                                              DateTime.parse(TgUtilPref.productYearReportX['date']['start'].toString()))+" - "+DateFormat("dd MMMM yyyy").format(
                                               DateTime.parse(TgUtilPref.productYearReportX['date']['end'].toString())),
                                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
                                         ),
                                       ),
+                                      // Expanded(
+                                      //   child: Text(
+                                      //     "",
+                                      //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Wrap(
-                                    children: [
-                                      for (final i in TgUtilPref.productYearReportX['data'])
-                                        SizedBox(
-                                          width: 150,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Wrap(
+                                  children: [
+                                    for (final i in dataBahan(TgUtilPref.productYearReportX['data']))
+                                      Card(
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          width: 170,
+                                          height: 80,
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.start,
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 i['nama_pro'].toString(),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(fontSize: 14, color: Colors.grey),
                                               ),
                                               Text(
                                                 NumberFormat.currency(locale: "id_ID", decimalDigits: 0, symbol: "Rp")
-                                                    .format(int.tryParse(i['totalValue'] ?? 0)),
+                                                    .format(int.tryParse((i['totalValue'] ?? 0).toString())),
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -93,15 +104,18 @@ class TgSubProductYear extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                    ],
-                                  ),
-                                  Flexible(
+                                      ),
+                                  ],
+                                ),
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
                                     child: DChartBar(
                                       data: [
                                         {
                                           "id": "product year",
                                           "data": [
-                                            for (final pie in TgUtilPref.productYearReportX['data'])
+                                            for (final pie in dataBahan(TgUtilPref.productYearReportX['data']))
                                               {
                                                 "domain": pie['nama_pro'].toString().split(" ")[0].toString(),
                                                 "measure": int.parse((pie['totalValue'] ?? 0).toString())
@@ -145,8 +159,8 @@ class TgSubProductYear extends StatelessWidget {
                                       domainLabelRotation: 45,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -231,7 +245,7 @@ class TgSubProductYear extends StatelessWidget {
                                                   {
                                                     "id": "month",
                                                     "data": [
-                                                      for (final pie in TgUtilPref.productMonthReportX['data'])
+                                                      for (final pie in dataBahan(TgUtilPref.productMonthReportX['data']))
                                                         {
                                                           "domain": pie['nama_pro'].toString().split(" ")[0].toString(),
                                                           "measure": int.tryParse(pie['totalValue'].toString()) ?? 0,
@@ -241,7 +255,7 @@ class TgSubProductYear extends StatelessWidget {
                                                   {
                                                     "id": "week",
                                                     "data": [
-                                                      for (final pie in TgUtilPref.prowductWeekReportX['data'])
+                                                      for (final pie in dataBahan(TgUtilPref.prowductWeekReportX['data']))
                                                         {
                                                           "domain": pie['nama_pro'].toString().split(" ")[0].toString(),
                                                           "measure": int.tryParse(pie['totalValue'].toString()) ?? 0,
@@ -251,7 +265,7 @@ class TgSubProductYear extends StatelessWidget {
                                                   {
                                                     "id": "day",
                                                     "data": [
-                                                      for (final pie in TgUtilPref.productDayReportX['data'])
+                                                      for (final pie in dataBahan(TgUtilPref.productDayReportX['data']))
                                                         {
                                                           "domain": pie['nama_pro'].toString().split(" ")[0].toString(),
                                                           "measure": int.tryParse(pie['totalValue'].toString()) ?? 0,
@@ -286,4 +300,13 @@ class TgSubProductYear extends StatelessWidget {
             ),
     );
   }
+
+  List dataBahan(List data) =>
+  List.from(data)..sort((a, b) => int.parse((b['totalValue']??0).toString()).compareTo(int.parse((a['totalValue']??0).toString())));
+
+  // onLoad(){
+  //   EasyLoading.showToast("status");
+  //   final a =List.from(TgUtilPref.productYearReportX['data'])..sort((a, b) => int.parse((b['totalValue']??0).toString()).compareTo(int.parse((a['totalValue']??0).toString())));
+  //   print(TgUtilPref.productYearReportX['data']);
+  // }
 }

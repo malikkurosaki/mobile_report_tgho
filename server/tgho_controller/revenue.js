@@ -26,6 +26,9 @@ async function dataRevenueReport() {
             _sum: {
                 total: true
             },
+            orderBy: {
+                total: "desc"
+            },
             where: {
                 tanggal: {
                     gte: new Date(startDate),

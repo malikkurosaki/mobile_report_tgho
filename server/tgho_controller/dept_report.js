@@ -22,6 +22,10 @@ async function dept_report(req, res) {
                 net: true,
                 gtotal: true
             },
+
+            orderBy: {
+                total: "desc"
+            },
             where: {
                 tanggal: {
                     gte: new Date(moment().startOf("year").format("YYYY-MM-DD")),
@@ -44,6 +48,9 @@ async function dept_report(req, res) {
                 total: true,
                 net: true
             },
+            orderBy: {
+                total: "desc"
+            },
             where: {
                 tanggal: {
                     gte: new Date(moment().startOf("month").format("YYYY-MM-DD")),
@@ -64,8 +71,10 @@ async function dept_report(req, res) {
         let week = await prisma.listbill.aggregate({
             _sum: {
                 total: true,
-                net: true
-
+                net: true,
+            },
+            orderBy:{
+                total: "desc"
             },
             where: {
                 tanggal: {

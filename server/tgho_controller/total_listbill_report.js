@@ -8,6 +8,9 @@ const prisma = new PrismaClient();
 
 async function dataTotalListBillReport() {
     let year = await prisma.listbill.count({
+        orderBy: {
+            total: "desc"
+        },
         where: {
             tanggal: {
                 gte: new Date(moment().startOf("year").format("YYYY-MM-DD")),
@@ -17,6 +20,9 @@ async function dataTotalListBillReport() {
     })
 
     let monnt = await prisma.listbill.count({
+        orderBy: {
+            total: "desc"
+        },
         where: {
             tanggal: {
                 gte: new Date(moment().startOf("month").format("YYYY-MM-DD")),
@@ -26,6 +32,10 @@ async function dataTotalListBillReport() {
     })
 
     let week = await prisma.listbill.count({
+        orderBy: {
+            total: "desc"
+        },
+
         where: {
             tanggal: {
                 gte: new Date(moment().startOf("week").format("YYYY-MM-DD")),
@@ -35,6 +45,9 @@ async function dataTotalListBillReport() {
     })
 
     let day = await prisma.listbill.count({
+        orderBy: {
+            total: "desc"
+        },
         where: {
             tanggal: {
                 gte: new Date(moment().startOf("day").format("YYYY-MM-DD")),

@@ -64,7 +64,7 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                             children: [
                                               Wrap(
                                                 children: [
-                                                  for (final i in TgUtilPref.reportByDeptX)
+                                                  for (final i in getListYear(TgUtilPref.reportByDeptX))
                                                     Container(
                                                       padding: EdgeInsets.all(8),
                                                       width: 150,
@@ -132,7 +132,7 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                                       {
                                                         "id": "dept",
                                                         "data": [
-                                                          for (final i in TgUtilPref.reportByDeptX)
+                                                          for (final i in getByDept(TgUtilPref.reportByDeptX))
                                                             {
                                                               "domain": i['dept'].toString().split(" ")[0].toString(),
                                                               "measure": int.parse((i["data"]['year']['data']['_sum']
@@ -154,68 +154,72 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Card(
-                                  child: SizedBox(
-                                    width: 500,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        children: [
-                                          for (final i in TgUtilPref.reportByDeptX)
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      i['dept'].toString(),
-                                                    ),
-                                                    Text(
-                                                      NumberFormat.currency(
-                                                        locale: 'id_ID',
-                                                        symbol: 'Rp',
-                                                        decimalDigits: 0,
-                                                      ).format(
-                                                        int.parse(
-                                                          (i["data"]['year']['data']['_sum']['total'] ?? 0).toString(),
-                                                        ),
-                                                      ),
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontStyle: FontStyle.italic,
-                                                        color: Colors.teal,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Divider()
-                                              ],
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
+                                // Card(
+                                //   child: SizedBox(
+                                //     width: 500,
+                                //     child: Padding(
+                                //       padding: const EdgeInsets.all(16),
+                                //       child: Column(
+                                //         children: [
+                                //           for (final i in TgUtilPref.reportByDeptX)
+                                //             Column(
+                                //               children: [
+                                //                 Row(
+                                //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //                   children: [
+                                //                     Text(
+                                //                       i['dept'].toString(),
+                                //                     ),
+                                //                     Text(
+                                //                       NumberFormat.currency(
+                                //                         locale: 'id_ID',
+                                //                         symbol: 'Rp',
+                                //                         decimalDigits: 0,
+                                //                       ).format(
+                                //                         int.parse(
+                                //                           (i["data"]['year']['data']['_sum']['total'] ?? 0).toString(),
+                                //                         ),
+                                //                       ),
+                                //                       style: TextStyle(
+                                //                         fontSize: 20,
+                                //                         fontWeight: FontWeight.bold,
+                                //
+                                //                         color: Colors.teal,
+                                //                       ),
+                                //                     ),
+                                //                   ],
+                                //                 ),
+                                //                 Divider()
+                                //               ],
+                                //             ),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // )
                               ],
                             ),
                             SizedBox(
                               width: 600,
                               child: Wrap(
                                 children: [
-                                  for (final i in TgUtilPref.reportByDeptX)
+                                  for (final i in getByDept(TgUtilPref.reportByDeptX))
                                     Card(
                                       child: Container(
                                         width: sizingInformation.isMobile ? 180 : 290,
+                                        height: 290,
                                         padding: const EdgeInsets.all(16),
                                         child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               i['dept'].toString(),
+                                              maxLines: 2,
+                                              textAlign: TextAlign.start,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic,
                                                 color: Colors.teal,
                                               ),
                                             ),
@@ -232,33 +236,33 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    DateFormat("dd MMMM yyyy").format(
-                                                        DateTime.parse(i['data']['month']['date']['start'].toString())),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    DateFormat("dd MMMM yyyy").format(
-                                                        DateTime.parse(i['data']['month']['date']['end'].toString())),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            //   children: [
+                                            //     Expanded(
+                                            //       child: Text(
+                                            //         DateFormat("dd MMMM yyyy").format(
+                                            //             DateTime.parse(i['data']['month']['date']['start'].toString())),
+                                            //         style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.bold,
+                                            //           color: Colors.grey,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //     Expanded(
+                                            //       child: Text(
+                                            //         DateFormat("dd MMMM yyyy").format(
+                                            //             DateTime.parse(i['data']['month']['date']['end'].toString())),
+                                            //         style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.bold,
+                                            //           color: Colors.grey,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
                                             Text(
                                               NumberFormat("#,###").format(int.tryParse(
                                                       i['data']['month']['data']['_sum']['total'].toString()) ??
@@ -266,7 +270,6 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic,
                                                 color: Colors.teal,
                                               ),
                                             ),
@@ -283,33 +286,33 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    DateFormat("dd MMMM yyyy").format(
-                                                        DateTime.parse(i['data']['week']['date']['start'].toString())),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    DateFormat("dd MMMM yyyy").format(
-                                                        DateTime.parse(i['data']['week']['date']['end'].toString())),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            //   children: [
+                                            //     Expanded(
+                                            //       child: Text(
+                                            //         DateFormat("dd MMMM yyyy").format(
+                                            //             DateTime.parse(i['data']['week']['date']['start'].toString())),
+                                            //         style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.bold,
+                                            //           color: Colors.grey,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //     Expanded(
+                                            //       child: Text(
+                                            //         DateFormat("dd MMMM yyyy").format(
+                                            //             DateTime.parse(i['data']['week']['date']['end'].toString())),
+                                            //         style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.bold,
+                                            //           color: Colors.grey,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
                                             Text(
                                               NumberFormat("#,###").format(
                                                   int.tryParse(i['data']['week']['data']['_sum']['total'].toString()) ??
@@ -317,7 +320,6 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic,
                                                 color: Colors.teal,
                                               ),
                                             ),
@@ -334,33 +336,33 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    DateFormat("dd MMMM yyyy").format(
-                                                        DateTime.parse(i['data']['day']['date']['start'].toString())),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    DateFormat("dd MMMM yyyy").format(
-                                                        DateTime.parse(i['data']['day']['date']['end'].toString())),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            //   children: [
+                                            //     Expanded(
+                                            //       child: Text(
+                                            //         DateFormat("dd MMMM yyyy").format(
+                                            //             DateTime.parse(i['data']['day']['date']['start'].toString())),
+                                            //         style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.bold,
+                                            //           color: Colors.grey,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //     Expanded(
+                                            //       child: Text(
+                                            //         DateFormat("dd MMMM yyyy").format(
+                                            //             DateTime.parse(i['data']['day']['date']['end'].toString())),
+                                            //         style: TextStyle(
+                                            //           fontSize: 12,
+                                            //           fontWeight: FontWeight.bold,
+                                            //           color: Colors.grey,
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
                                             Text(
                                               NumberFormat("#,###").format(
                                                   int.tryParse(i['data']['day']['data']['_sum']['total'].toString()) ??
@@ -368,7 +370,6 @@ class TgSubRevenueByDepartement extends StatelessWidget {
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic,
                                                 color: Colors.teal,
                                               ),
                                             ),
@@ -386,4 +387,12 @@ class TgSubRevenueByDepartement extends StatelessWidget {
       ),
     );
   }
+
+  List getByDept(List list) => List.from(list)
+    ..sort((a, b) => int.parse((b["data"]['year']['data']['_sum']['total'] ?? 0).toString())
+        .compareTo(int.parse((a["data"]['year']['data']['_sum']['total'] ?? 0).toString())));
+
+  List getListYear(List list) => List.from(list)
+    ..sort((a, b) => int.parse((b['data']['year']['data']['_sum']['total'] ?? 0).toString())
+        .compareTo(int.parse((a['data']['year']['data']['_sum']['total'] ?? 0).toString())));
 }

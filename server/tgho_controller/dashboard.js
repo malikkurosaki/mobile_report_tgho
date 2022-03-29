@@ -156,6 +156,9 @@ async function ReportByTotal() {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstMonth),
@@ -179,6 +182,9 @@ async function ReportByTotal() {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -204,6 +210,9 @@ async function ReportByTotal() {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstDayWeek),
@@ -227,6 +236,9 @@ async function ReportByTotal() {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -279,6 +291,9 @@ async function ReportByGroup(group) {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstMonth),
@@ -311,6 +326,9 @@ async function ReportByGroup(group) {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -346,6 +364,9 @@ async function ReportByGroup(group) {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstDayWeek),
@@ -378,6 +399,9 @@ async function ReportByGroup(group) {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -466,6 +490,9 @@ async function ReportByDept(dept) {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstMonth),
@@ -492,6 +519,9 @@ async function ReportByDept(dept) {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -521,6 +551,9 @@ async function ReportByDept(dept) {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstDayWeek),
@@ -547,6 +580,9 @@ async function ReportByDept(dept) {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -629,6 +665,9 @@ async function ReportByOut(out) {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstMonth),
@@ -655,6 +694,9 @@ async function ReportByOut(out) {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {
@@ -684,6 +726,9 @@ async function ReportByOut(out) {
             pax: true,
             cash: true,
         },
+        orderBy: {
+            total: 'desc'
+        },
         where: {
             tanggal: {
                 gte: new Date(firstDayWeek),
@@ -710,6 +755,9 @@ async function ReportByOut(out) {
             gtotal: true,
             pax: true,
             cash: true,
+        },
+        orderBy: {
+            total: 'desc'
         },
         where: {
             tanggal: {

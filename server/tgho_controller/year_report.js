@@ -29,6 +29,9 @@ async function dataYearReport(){
         _max: map,
         _min: map,
         _sum: map,
+        orderBy:{
+            total: "desc"
+        },
         where: {
             tanggal: {
                 gte: new Date(moment().startOf('year').format("YYYY-MM-DD")),

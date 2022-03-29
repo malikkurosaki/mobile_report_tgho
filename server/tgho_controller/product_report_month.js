@@ -44,6 +44,9 @@ async function dataProductReportMonth() {
             _sum: {
                 harga_pro: true
             },
+            orderBy:{
+                qty: "desc"
+            },
             where: {
                 Produk: {
                     nama_pro: nama_pro
