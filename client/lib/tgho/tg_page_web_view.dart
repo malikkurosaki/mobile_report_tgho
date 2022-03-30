@@ -16,7 +16,7 @@ class TgPageWebView extends StatelessWidget {
           Flexible(
             child: EasyWebView(
               webAllowFullScreen: true,
-              src: "https://google.com",
+              src: TgConfig.baseUrlWeb,
               onLoaded: () {
                 EasyLoading.showToast("page loaded");
               },

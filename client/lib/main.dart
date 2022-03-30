@@ -29,7 +29,10 @@ class MyAppWbView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      theme:ThemeData(
+        brightness: Brightness.light
+      ),
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: TgPageWebView(),
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(brightness: Brightness.light),
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       title: 'Mobile Report',
