@@ -45,7 +45,7 @@ dependencies:
   # http:
   # flutter_dotenv: ^5.0.2
   # fwfh_webview: ^0.6.2+1
-  # webviewx: ^0.2.1
+  webviewx: ^0.2.1
   # dart_eval: ^0.0.4
   flutter_native_splash: ^2.0.5
   responsive_builder: ^0.4.2

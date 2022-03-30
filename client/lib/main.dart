@@ -9,10 +9,10 @@ import 'package:mobile_report/tgho/tg_page_web_view.dart';
 
 void main() async {
 
-  if(GetPlatform.isAndroid){
-    runApp(const MyAppWbView());
-    return;
-  }
+  // if(GetPlatform.isAndroid){
+  //   runApp(const MyAppWbView());
+  //   return;
+  // }
 
   await GetStorage.init();
   TgUtilLoad().loadFirst();
