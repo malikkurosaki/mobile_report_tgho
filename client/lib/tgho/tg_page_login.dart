@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/utils.dart';
 import 'package:mobile_report/tgho/tg_config.dart';
 import 'package:mobile_report/tgho/tg_conn.dart';
 import 'package:mobile_report/tgho/tg_util_load.dart';
@@ -24,6 +25,7 @@ class TgPageLogin extends StatelessWidget {
               color: Colors.white,
               child: ListView(
                 children: [
+                  // Text(GetPlatform.isAndroid.toString()),
                   TgUtilLoad().ping(),
                   Center(
                     child: Container(
@@ -93,6 +95,7 @@ class TgPageLogin extends StatelessWidget {
                         ),
                       ),
                       onPressed: () async {
+                        EasyLoading.showInfo("login ...", dismissOnTap: true);
                         try {
                           final login = await TgConn().login(body);
                           print(TgConfig.baseUrl);
@@ -108,6 +111,8 @@ class TgPageLogin extends StatelessWidget {
                           print(e.toString());
                           EasyLoading.showToast(e.toString());
                         }
+
+                        EasyLoading.dismiss();
                       },
                     ),
                   )

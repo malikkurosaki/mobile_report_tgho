@@ -1,21 +1,15 @@
-import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
-import 'package:mobile_report/app/v2_dashboard_option.dart';
-import 'package:mobile_report/app/v2_home.dart';
-import 'package:mobile_report/app/v2_profile.dart';
-import 'package:mobile_report/intro.dart';
-import 'package:mobile_report/login.dart';
 import 'package:mobile_report/tgho/tg_develop.dart';
-import 'package:mobile_report/tgho/tg_page_login.dart';
 import 'package:mobile_report/tgho/tg_page_intro.dart';
-import 'package:mobile_report/v2_root.dart';
+import 'package:mobile_report/tgho/tg_page_login.dart';
 
-import 'tg_page_dashboard.dart';
 import 'tg_dept_report.dart';
+import 'tg_page_dashboard.dart';
+import 'tg_page_wellcome.dart';
 import 'tg_performance.dart';
 import 'tg_product_report.dart';
 import 'tg_root.dart';
-import 'tg_page_wellcome.dart';
+import 'tg_page_web_view.dart';
 
 class TgUtilRouter{
   late String key;
@@ -35,6 +29,8 @@ class TgUtilRouter{
   TgUtilRouter.performanceReport() : key = '/performanceReport';
   // dept report
   TgUtilRouter.deptReport() : key = '/deptReport';
+  // web view
+  TgUtilRouter.webView() : key = '/webView';
   
 
   go() => Get.toNamed(key);
@@ -59,6 +55,8 @@ class TgUtilRouter{
     GetPage(name: TgUtilRouter.wellcome().key, page: () => TgPageWellcome()),
     // login
     GetPage(name: TgUtilRouter.login().key, page: () => TgPageLogin()),
+    // web view
+    GetPage(name: TgUtilRouter.webView().key, page: () => TgPageWebView()),
   ];
   
 }

@@ -9,7 +9,7 @@ class TgRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     onLoad();
-    return Material(
+    return const Material(
       child: SafeArea(
         child: Center(
           child: Text("loading ..."),
@@ -20,6 +20,10 @@ class TgRoot extends StatelessWidget {
 
   onLoad()async{
     await 0.1.delay();
+    // if(GetPlatform.isAndroid){
+    //   TgUtilRouter.webView();
+    //   return;
+    // }
 
     TgUtilPref.wellcome();
     TgUtilPref.user();

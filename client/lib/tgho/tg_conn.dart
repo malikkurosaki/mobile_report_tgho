@@ -34,16 +34,16 @@ class TgConn extends GetConnect {
   Future<Response> login(Map body) => post(TgConfig.baseUrl + '/login', body);
 
   // ping
-  Future<Response> ping() async {
+  Future<void> ping() async {
     final ping = await get(TgConfig.baseUrl + '/ping');
-    try {
-      if (ping.body['success'].toString() == "true") {
-        TgUtilVal.ping.value = false;
-      }
-    } catch (e) {
-      TgUtilVal.ping.value = true;
-    }
+    TgUtilVal.ping.value = ping.body['success'].toString() == "true";
+    // try {
+    //   if (ping.body['success'].toString() == "true") {
+    //     TgUtilVal.ping.value = false;
+    //   }
+    // } catch (e) {
+    //   TgUtilVal.ping.value = true;
+    // }
 
-    return ping;
   }
 }

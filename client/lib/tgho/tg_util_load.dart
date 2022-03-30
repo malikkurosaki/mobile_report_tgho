@@ -70,12 +70,16 @@ class TgUtilLoad {
 
   // product month
   productMonth() async {
-    TgUtilPref.productMonthReport();
-    final month = await TgConn().getProductReportMonth();
-    if (month.body['success'].toString() == "true") {
-      TgUtilPref.productMonthReport(value: month.body['data']);
+    try {
+      TgUtilPref.productMonthReport();
+      final month = await TgConn().getProductReportMonth();
+      if (month.body['success'].toString() == "true") {
+        TgUtilPref.productMonthReport(value: month.body['data']);
+      }
+      print("==> load product month");
+    } catch (e) {
+      print(e.toString());
     }
-    print("==> load product month");
   }
 
   // product week
@@ -120,10 +124,10 @@ class TgUtilLoad {
 
   Widget ping() => Obx(
         () => TgUtilVal.ping.value
-            ? FutureBuilder<Response>(
+            ? FutureBuilder<void>(
                 future: TgConn().ping(),
                 builder: (context, snapshot) => snapshot.connectionState != ConnectionState.done
-                    ? Center(
+                    ? const Center(
                         child: Text(
                           "load new data ... ",
                           style: TextStyle(
@@ -136,7 +140,7 @@ class TgUtilLoad {
                     : Visibility(
                         visible: snapshot.connectionState == ConnectionState.done,
                         child: Center(
-                          child: snapshot.data!.body.toString() != "true"
+                          child: !TgUtilVal.ping.value
                               ? Text(
                                   "Server Timeout ...",
                                   style: TextStyle(fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
