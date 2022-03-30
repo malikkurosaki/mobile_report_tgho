@@ -11,19 +11,13 @@ class TgPageWebView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-          child: Column(
-        children: [
-          Flexible(
-            child: EasyWebView(
-              webAllowFullScreen: true,
-              src: TgConfig.baseUrlWeb,
-              onLoaded: () {
-                EasyLoading.showToast("page loaded");
-              },
-            ),
-          ),
-        ],
-      )),
+          child: EasyWebView(
+            webAllowFullScreen: true,
+            src: TgConfig.baseUrlWeb,
+            onLoaded: () {
+              EasyLoading.showToast("page loaded");
+            },
+          )),
     );
   }
 }
