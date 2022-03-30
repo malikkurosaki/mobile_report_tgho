@@ -74686,7 +74686,7 @@ case 2:return A.P(null,r)}})
 return A.Q($async$$0,r)},
 $S:37}
 A.pr.prototype={
-F(a,b){return A.aDH(B.j,A.tz(!0,A.bO(A.b([new A.ed(1,B.aQ,new A.xx("https://malikkurosaki.github.io/mobile_report_tgho/client/build/web/#/dashboard",!0,new A.adQ(),null),null)],t.p),B.H,B.u,B.q),B.Y,!0),null)}}
+F(a,b){return A.aDH(B.j,A.tz(!0,A.bO(A.b([new A.ed(1,B.aQ,new A.xx("https://google.com",!0,new A.adQ(),null),null)],t.p),B.H,B.u,B.q),B.Y,!0),null)}}
 A.adQ.prototype={
 $0(){A.fW("page loaded")},
 $S:0}

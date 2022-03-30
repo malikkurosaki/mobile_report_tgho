@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get_connect.dart';
 import 'package:mobile_report/tgho/tg_conn.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:get/get.dart';
 
 class TgDevelop extends StatelessWidget {
   const TgDevelop({Key? key}) : super(key: key);
@@ -53,4 +54,8 @@ class TgDevelop extends StatelessWidget {
           ),
         ),
       );
+
+      onload(){
+        Get.changeThemeMode(ThemeMode.light);
+      }
 }
