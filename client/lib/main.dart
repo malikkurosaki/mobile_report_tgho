@@ -10,16 +10,12 @@ import 'package:mobile_report/tgho/tg_page_web_view.dart';
 void main() async {
 
   if(GetPlatform.isAndroid){
-    runApp(MyAppWbView());
+    runApp(const MyAppWbView());
     return;
   }
 
   await GetStorage.init();
-  try {
-    TgUtilLoad().loadFirst();
-  } catch (e) {
-    print(e);
-  }
+  TgUtilLoad().loadFirst();
   runApp(const MyApp());
 }
 
@@ -29,11 +25,7 @@ class MyAppWbView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme:ThemeData(
-        brightness: Brightness.light
-      ),
-      themeMode: ThemeMode.light,
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: TgPageWebView(),
     );
@@ -46,8 +38,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(brightness: Brightness.light),
-      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       title: 'Mobile Report',
       initialRoute: '/',
