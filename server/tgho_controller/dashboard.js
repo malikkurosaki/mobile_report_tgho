@@ -8,8 +8,6 @@ const { Tunggu } = require('../tunggu');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const storage = new LocalStorage("./scratch");
 
-
-
 var Selection = {
     /**@type {{
         nm_groupp: string;
@@ -37,19 +35,25 @@ var Selection = {
 
             }
         })
+        storage.setItem('group', JSON.stringify(this.group, null, 2));
+        console.log("data select group berhasil di simpan");
+
         this.dept = await prisma.acc_dept.findMany({
             select: {
                 nama_dept: true,
 
             }
         })
-
+        storage.setItem('dept', JSON.stringify(this.dept, null, 2));
+        console.log("data select dept berhasil di simpan");
         this.outlet = await prisma.outlet.findMany({
             select: {
                 nama_out: true,
                 kode_out: true,
             }
         })
+        storage.setItem('outlet', JSON.stringify(this.outlet, null, 2));
+        console.log("data select outlet berhasil di simpan");
     },
 
 }
@@ -58,21 +62,52 @@ async function dataDashboard() {
 
     // let { tgl1, tgl2, dept, out } = req.query
     await Selection.get();
+    if(storage.getItem('group') == null || storage.getItem('dept') == null || storage.getItem('outlet') == null){
+        await Selection.get();
+    }else{
+        Selection.group = JSON.parse(storage.getItem('group'));
+        Selection.dept = JSON.parse(storage.getItem('dept'));
+        Selection.outlet = JSON.parse(storage.getItem('outlet'));
+        Selection.get();
+    }
 
     let reportGroup = [];
     for (let i of Selection.group) {
-        reportGroup.push(await ReportByGroup(i.nm_groupp))
-
+        if(storage.getItem(i.nm_groupp) == null){
+            storage.setItem(i.nm_groupp, JSON.stringify(await ReportByGroup(i.nm_groupp), null, 2));
+            reportGroup.push(storage.getItem(i.nm_groupp));
+        }else{
+            reportGroup.push(JSON.parse(storage.getItem(i.nm_groupp)))
+            ReportByGroup(i.nm_groupp).then(data => {
+                storage.setItem(i.nm_groupp, JSON.stringify(data, null, 2));
+            })
+        }
     }
 
     let reportDept = [];
     for (let i of Selection.dept) {
-        reportDept.push(await ReportByDept(i.nama_dept))
+        if(storage.getItem(i.nama_dept) == null){
+            storage.setItem(i.nama_dept, JSON.stringify(await ReportByDept(i.nama_dept), null, 2));
+            reportDept.push(storage.getItem(i.nama_dept));
+        }else{
+            reportDept.push(JSON.parse(storage.getItem(i.nama_dept)))
+            ReportByDept(i.nama_dept).then(data => {
+                storage.setItem(i.nama_dept, JSON.stringify(data, null, 2));
+            })
+        }
     }
 
     let reportOut = [];
     for (let i of Selection.outlet) {
-        reportOut.push(await ReportByOut(i.kode_out))
+        if(storage.getItem(i.nama_out) == null){
+            storage.setItem(i.nama_out, JSON.stringify(await ReportByOut(i.nama_out), null, 2));
+            reportOut.push(storage.getItem(i.nama_out));
+        }else{
+            reportOut.push(JSON.parse(storage.getItem(i.nama_out)))
+            ReportByOut(i.nama_out).then(data => {
+                storage.setItem(i.nama_out, JSON.stringify(data, null, 2));
+            })
+        }
     }
 
     let reportTotal = await ReportByTotal();
@@ -259,23 +294,7 @@ async function ReportByTotal() {
 }
 
 async function ReportByGroup(group) {
-    // // first month this year
-    // let firstMonth = moment().startOf('year').format('YYYY-MM-DD');
-    // // last month this year
-    // let lastMonth = moment().endOf('year').format('YYYY-MM-DD');
-    // // first day this month
-    // let firstDay = moment().startOf('month').format('YYYY-MM-DD');
-    // // last day this month
-    // let lastDay = moment().endOf('month').format('YYYY-MM-DD');
-    // // first day this week
-    // let firstDayWeek = moment().startOf('week').format('YYYY-MM-DD');
-    // // last day this week
-    // let lastDayWeek = moment().endOf('week').format('YYYY-MM-DD');
-    // // first today
-    // let firstToday = moment().startOf('day').format('YYYY-MM-DD');
-    // // last today
-    // let lastToday = moment().endOf('day').format('YYYY-MM-DD');
-    // year report
+
     let year = await prisma.listbill.aggregate({
         _sum: {
             total: true,
@@ -458,23 +477,7 @@ async function ReportByGroup(group) {
 }
 
 async function ReportByDept(dept) {
-    // // first month this year
-    // let firstMonth = moment().startOf('year').format('YYYY-MM-DD');
-    // // last month this year
-    // let lastMonth = moment().endOf('year').format('YYYY-MM-DD');
-    // // first day this month
-    // let firstDay = moment().startOf('month').format('YYYY-MM-DD');
-    // // last day this month
-    // let lastDay = moment().endOf('month').format('YYYY-MM-DD');
-    // // first day this week
-    // let firstDayWeek = moment().startOf('week').format('YYYY-MM-DD');
-    // // last day this week
-    // let lastDayWeek = moment().endOf('week').format('YYYY-MM-DD');
-    // // first today
-    // let firstToday = moment().startOf('day').format('YYYY-MM-DD');
-    // // last today
-    // let lastToday = moment().endOf('day').format('YYYY-MM-DD');
-    // year report
+
     let year = await prisma.listbill.aggregate({
         _sum: {
             total: true,
@@ -633,23 +636,7 @@ async function ReportByDept(dept) {
 }
 
 async function ReportByOut(out) {
-    // // first month this year
-    // let firstMonth = moment().startOf('year').format('YYYY-MM-DD');
-    // // last month this year
-    // let lastMonth = moment().endOf('year').format('YYYY-MM-DD');
-    // // first day this month
-    // let firstDay = moment().startOf('month').format('YYYY-MM-DD');
-    // // last day this month
-    // let lastDay = moment().endOf('month').format('YYYY-MM-DD');
-    // // first day this week
-    // let firstDayWeek = moment().startOf('week').format('YYYY-MM-DD');
-    // // last day this week
-    // let lastDayWeek = moment().endOf('week').format('YYYY-MM-DD');
-    // // first today
-    // let firstToday = moment().startOf('day').format('YYYY-MM-DD');
-    // // last today
-    // let lastToday = moment().endOf('day').format('YYYY-MM-DD');
-    // year report
+
     let year = await prisma.listbill.aggregate({
         _sum: {
             total: true,
@@ -806,229 +793,5 @@ async function ReportByOut(out) {
 
     return report;
 }
-
-// const AmbilDataSingle = async (tgl1) => {
-
-//     let group = {};
-//     for (let i of Selection.group) {
-//         let data = await prisma.listbill.aggregate({
-//             _sum: {
-//                 total: true,
-//                 gtotal: true,
-//                 net: true,
-//                 taxrp: true,
-//             },
-//             where: {
-//                 bill: {
-//                     every: {
-//                         Produk: {
-//                             groupp: {
-//                                 equals: i.nm_groupp
-//                             }
-//                         }
-//                     }
-//                 },
-//                 tanggal: {
-//                     gte: new Date(tgl1),
-//                     lte: new Date(tgl1)
-//                 }
-//             }
-//         })
-
-//         group[i.nm_groupp] = data;
-
-//     }
-
-//     return group;
-// }
-
-// const AmbilDataSingleDept = async (tgl1, dept) => {
-
-//     let group = {};
-//     for (let i of Selection.group) {
-//         let data = await prisma.listbill.aggregate({
-//             _sum: {
-//                 total: true,
-//                 gtotal: true,
-//                 net: true,
-//                 taxrp: true,
-//             },
-//             where: {
-//                 bill: {
-//                     every: {
-//                         Produk: {
-//                             groupp: {
-//                                 equals: i.nm_groupp
-//                             }
-//                         },
-//                     }
-//                 },
-//                 cdept: {
-//                     equals: dept
-//                 },
-//                 tanggal: {
-//                     gte: new Date(tgl1),
-//                     lte: new Date(tgl1)
-//                 }
-//             }
-//         })
-
-//         group[i.nm_groupp] = data;
-
-//     }
-
-//     return group;
-// }
-
-// const AmbilDataSingleOutlet = async (tgl1, outlet) => {
-
-//     let group = {};
-//     for (let i of Selection.group) {
-//         let data = await prisma.listbill.aggregate({
-//             _sum: {
-//                 total: true,
-//                 gtotal: true,
-//                 net: true,
-//                 taxrp: true,
-//             },
-//             where: {
-//                 bill: {
-//                     every: {
-//                         Produk: {
-//                             groupp: {
-//                                 equals: i.nm_groupp
-//                             }
-//                         },
-//                     }
-//                 },
-//                 kode_out: {
-//                     equals: outlet
-//                 },
-//                 tanggal: {
-//                     gte: new Date(tgl1),
-//                     lte: new Date(tgl1)
-//                 }
-//             }
-//         })
-
-//         group[i.nm_groupp] = data;
-
-//     }
-
-//     return group;
-// }
-
-// const AmbilDataAll = async (tgl1, tgl2) => {
-
-//     let group = {};
-//     for (let i of Selection.group) {
-//         let data = await prisma.listbill.aggregate({
-//             _sum: {
-//                 total: true,
-//                 gtotal: true,
-//                 net: true,
-//                 taxrp: true,
-//             },
-//             where: {
-//                 bill: {
-//                     every: {
-//                         Produk: {
-//                             groupp: {
-//                                 equals: i.nm_groupp
-//                             }
-//                         }
-//                     }
-//                 },
-//                 tanggal: {
-//                     gte: new Date(tgl1),
-//                     lte: new Date(tgl2)
-//                 }
-//             }
-//         })
-
-//         group[i.nm_groupp] = data;
-
-//     }
-
-//     return group;
-// }
-
-// const AmbilDataDept = async (tgl1, tgl2, dept) => {
-
-//     let group = {};
-//     for (let i of Selection.group) {
-//         let data = await prisma.listbill.aggregate({
-//             _sum: {
-//                 total: true,
-//                 gtotal: true,
-//                 net: true,
-//                 taxrp: true,
-//             },
-//             where: {
-//                 bill: {
-//                     every: {
-//                         Produk: {
-//                             groupp: {
-//                                 equals: i.nm_groupp
-//                             }
-//                         },
-//                     }
-//                 },
-//                 cdept: {
-//                     equals: dept
-//                 },
-//                 tanggal: {
-//                     gte: new Date(tgl1),
-//                     lte: new Date(tgl2)
-//                 }
-//             }
-//         })
-
-//         group[i.nm_groupp] = data;
-
-//     }
-
-//     return group;
-// }
-
-// const AmbilDataOutlet = async (tgl1, tgl2, outlet) => {
-
-//     let group = {};
-//     for (let i of Selection.group) {
-//         let data = await prisma.listbill.aggregate({
-//             _sum: {
-//                 total: true,
-//                 gtotal: true,
-//                 net: true,
-//                 taxrp: true,
-//             },
-//             where: {
-//                 bill: {
-//                     every: {
-//                         Produk: {
-//                             groupp: {
-//                                 equals: i.nm_groupp
-//                             }
-//                         },
-//                     }
-//                 },
-//                 kode_out: {
-//                     equals: outlet
-//                 },
-//                 tanggal: {
-//                     gte: new Date(tgl1),
-//                     lte: new Date(tgl2)
-//                 }
-//             }
-//         })
-
-//         group[i.nm_groupp] = data;
-
-//     }
-
-//     return group;
-// }
-
-
 
 module.exports = { Dashboard, }
