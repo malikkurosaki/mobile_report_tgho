@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# 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
+WT=$(date +"%d%m%y_%T")
+R=$(tput setaf 1)
+G=$(tput setaf 2)
+Y=$(tput setaf 3)
+B=$(tput setaf 4)
+C=$(tput setaf 6)
+W=$(tput setaf 7)
+# LGN="sshpass -p 7971515Probus@system ssh root@report-mobile-dev.probussystem.net"
+# SHM="cd .. && cd home/mobile_report"
+# SERVER_PULL=" $LGN -t $SHM && git add . && git commit -m $WT && git pull -f origin main"
+# SGC="$LGN -t $SHM && git rm -r --cached ."
+# SER_RUN="$LGN -t $SHM && pm2 start index.js --name mobile_report"
+# LOCAL_RUN="nodemon ."
+# MN="
+# PENGGUNAAN | $WT
+# -----------------------------------
+# -psh <git push>             git push, satu paket
+# -ssh <ssh>                  login ssh, auto login ssh
+# -sup <server update>        update server dari github repository
+# -gcl                        git clean cached
+# -sgc                        server git clean cached
+# -srn                        server run
+# -lrn                        local server run
+# -tlg                        tolong , munculin menu
+# "
+
+# CASE1() {
+#     case $1 in
+#     -psh) git add . && git commit -m "$WT" && git push origin main ;;
+#     -ssh) $LGN ;;
+#     -sup) $SERVER_PULL ;;
+#     -gcl) git rm -r --cached . ;;
+#     -sgc) $SGC ;;
+#     -srn) $SER_RUN ;;
+#     -lrn) $LOCAL_RUN ;;
+#     -tlg) INFO ;;
+#     *) echo "$R $1 Belum Ada$W" ;;
+#     esac
+# }
+
+INFO() {
+    local MENU="$Y
+    PENGGUNAAN | $WT
+    ---------------------------------------------------------------
+    LOCAL:
+    -l push     <git push>             git push local ke githun
+
+    SERVER: 
+    -s login    <login ke server>      auto login ke server dengan ssh
+    -s pull     <server git pull>      pull server dari github
+    $W
+    "
+    echo "$MENU"
+}
+
+SVR="sshpass -p 7971515Probus@system ssh root@report-mobile-dev.probussystem.net"
+PUSH="git add . && git commit -m '$WT' && git push origin main"
+PULL="git add . && git commit -m '$WT' && git pull -f origin main"
+GIT_CLEAN="git rm -r --cached ."
+
+SERVER_GIT_PULL() {
+    $SVR -t "cd .. && cd home/mobile_report && git add . && git commit -m malik$WT && git pull -f origin main"
+}
+
+SERVER() {
+    local SERVER_DIR="cd .. && cd home/mobile_report"
+    case $1 in
+    login) $SVR ;;
+    pull) SERVER_GIT_PULL ;;
+    *) echo "$R menu $1 untuk server belum ada $W" ;;
+    esac
+}
+
+LOCAL() {
+    case $1 in
+    push) git add . && git commit -m "$WT" && git push origin main ;;
+    *) echo "$R menu $1 untuk local belum ada $W" ;;
+    esac
+}
+
+if [[ ! -z $1 && ! -z $2 ]]; then
+    case $1 in
+    -s) SERVER $2 ;;
+    -l) LOCAL $2 ;;
+    esac
+else
+    INFO
+fi

@@ -1,0 +1,93 @@
+{
+  "dept": "WARUNG KOFFIE BATAVIA",
+  "data": {
+    "year": {
+      "date": {
+        "start": "2022-01-01",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": "603588000",
+          "net": "532734313",
+          "gtotal": "603588000",
+          "pax": "6217",
+          "cash": "370224000"
+        },
+        "_avg": {
+          "total": "123559.467758",
+          "net": "109055.130604",
+          "gtotal": "123559.467758",
+          "pax": "1.2727",
+          "cash": "75787.922211"
+        }
+      }
+    },
+    "month": {
+      "date": {
+        "start": "2022-03-01",
+        "end": "2022-03-31"
+      },
+      "data": {
+        "_sum": {
+          "total": "307290000",
+          "net": "271217990",
+          "gtotal": "307290000",
+          "pax": "3124",
+          "cash": "193520000"
+        },
+        "_avg": {
+          "total": "124914.634146",
+          "net": "110251.215447",
+          "gtotal": "124914.634146",
+          "pax": "1.2699",
+          "cash": "78666.666667"
+        }
+      }
+    },
+    "week": {
+      "date": {
+        "start": "2022-03-27",
+        "end": "2022-04-02"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    },
+    "day": {
+      "date": {
+        "start": "2022-03-30",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    }
+  }
+}

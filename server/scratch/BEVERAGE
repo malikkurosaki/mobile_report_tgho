@@ -1,0 +1,93 @@
+{
+  "group": "BEVERAGE",
+  "data": {
+    "year": {
+      "date": {
+        "start": "2022-01-01",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": "170505750",
+          "net": "129061054",
+          "gtotal": "170505750",
+          "pax": "2426",
+          "cash": "110074750"
+        },
+        "_avg": {
+          "total": "73367.362306",
+          "net": "55534.016351",
+          "gtotal": "73367.362306",
+          "pax": "1.0439",
+          "cash": "47364.350258"
+        }
+      }
+    },
+    "month": {
+      "date": {
+        "start": "2022-03-01",
+        "end": "2022-03-31"
+      },
+      "data": {
+        "_sum": {
+          "total": "84466750",
+          "net": "72626748",
+          "gtotal": "84466750",
+          "pax": "1372",
+          "cash": "62797750"
+        },
+        "_avg": {
+          "total": "63604.480422",
+          "net": "54688.816265",
+          "gtotal": "63604.480422",
+          "pax": "1.0331",
+          "cash": "47287.462349"
+        }
+      }
+    },
+    "week": {
+      "date": {
+        "start": "2022-03-27",
+        "end": "2022-04-02"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    },
+    "day": {
+      "date": {
+        "start": "2022-03-30",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    }
+  }
+}

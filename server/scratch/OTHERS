@@ -1,0 +1,93 @@
+{
+  "group": "OTHERS",
+  "data": {
+    "year": {
+      "date": {
+        "start": "2022-01-01",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": "20360000",
+          "net": "0",
+          "gtotal": "20360000",
+          "pax": "2",
+          "cash": "0"
+        },
+        "_avg": {
+          "total": "254500",
+          "net": "0",
+          "gtotal": "254500",
+          "pax": "0.025",
+          "cash": "0"
+        }
+      }
+    },
+    "month": {
+      "date": {
+        "start": "2022-03-01",
+        "end": "2022-03-31"
+      },
+      "data": {
+        "_sum": {
+          "total": "0",
+          "net": "0",
+          "gtotal": "0",
+          "pax": "0",
+          "cash": "0"
+        },
+        "_avg": {
+          "total": "0",
+          "net": "0",
+          "gtotal": "0",
+          "pax": "0",
+          "cash": "0"
+        }
+      }
+    },
+    "week": {
+      "date": {
+        "start": "2022-03-27",
+        "end": "2022-04-02"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    },
+    "day": {
+      "date": {
+        "start": "2022-03-30",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    }
+  }
+}

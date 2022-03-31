@@ -1,0 +1,93 @@
+{
+  "dept": "WARUNG MADE DOMES",
+  "data": {
+    "year": {
+      "date": {
+        "start": "2022-01-01",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": "2934305057",
+          "net": "2472238365",
+          "gtotal": "2934305057",
+          "pax": "16565",
+          "cash": "1122197056"
+        },
+        "_avg": {
+          "total": "264304.184561",
+          "net": "222684.053774",
+          "gtotal": "264304.184561",
+          "pax": "1.4921",
+          "cash": "101080.621149"
+        }
+      }
+    },
+    "month": {
+      "date": {
+        "start": "2022-03-01",
+        "end": "2022-03-31"
+      },
+      "data": {
+        "_sum": {
+          "total": "1600538400",
+          "net": "1348500683",
+          "gtotal": "1600538400",
+          "pax": "8744",
+          "cash": "598476150"
+        },
+        "_avg": {
+          "total": "270315.554805",
+          "net": "227748.806452",
+          "gtotal": "270315.554805",
+          "pax": "1.4768",
+          "cash": "101076.870461"
+        }
+      }
+    },
+    "week": {
+      "date": {
+        "start": "2022-03-27",
+        "end": "2022-04-02"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    },
+    "day": {
+      "date": {
+        "start": "2022-03-30",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "port": 3000,
+  "path": "api",
+  "protocol": "http",
+  "ver": "v2",
+  "baseUrl": "http://localhost:3000/api/v2"
+}

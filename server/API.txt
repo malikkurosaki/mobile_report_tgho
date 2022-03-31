@@ -1,0 +1,12 @@
+API Documentation
+----------------------------------------------------------------
+
+/dash
+/totalRevenue
+/avarageBillPax
+/complimentGross
+/salesPerformance
+/salesAvarage
+
+
+

@@ -1,0 +1,93 @@
+{
+  "group": "FOOD",
+  "data": {
+    "year": {
+      "date": {
+        "start": "2022-01-01",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": "562320200",
+          "net": "474973682",
+          "gtotal": "562320200",
+          "pax": "5441",
+          "cash": "298903300"
+        },
+        "_avg": {
+          "total": "117028.137357",
+          "net": "98849.88179",
+          "gtotal": "117028.137357",
+          "pax": "1.1324",
+          "cash": "62206.722164"
+        }
+      }
+    },
+    "month": {
+      "date": {
+        "start": "2022-03-01",
+        "end": "2022-03-31"
+      },
+      "data": {
+        "_sum": {
+          "total": "306557700",
+          "net": "269525289",
+          "gtotal": "306557700",
+          "pax": "2928",
+          "cash": "163586700"
+        },
+        "_avg": {
+          "total": "118179.529684",
+          "net": "103903.349653",
+          "gtotal": "118179.529684",
+          "pax": "1.1288",
+          "cash": "63063.492675"
+        }
+      }
+    },
+    "week": {
+      "date": {
+        "start": "2022-03-27",
+        "end": "2022-04-02"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    },
+    "day": {
+      "date": {
+        "start": "2022-03-30",
+        "end": "2022-03-30"
+      },
+      "data": {
+        "_sum": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        },
+        "_avg": {
+          "total": null,
+          "net": null,
+          "gtotal": null,
+          "pax": null,
+          "cash": null
+        }
+      }
+    }
+  }
+}
